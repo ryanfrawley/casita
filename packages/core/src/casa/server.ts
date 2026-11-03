@@ -17,7 +17,7 @@ export {
   SensorRuntime,
   type SensorRuntimeDeps,
 } from "./derived.ts";
-export { homeFromLegacy, type LegacyHouse, legacyHouse } from "./legacy.ts";
+export { EMPTY_HOUSE_HINT, stockHome } from "./stock.ts";
 export {
   type HandlerStatus,
   PageRuntime,

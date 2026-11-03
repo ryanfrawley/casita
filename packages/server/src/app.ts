@@ -12,11 +12,9 @@ import {
   createLoggerFactory,
   createScheduler,
   type Domain,
-  homeFromLegacy,
   type IntegrationCatalog,
   IntegrationHost,
   type Logger,
-  legacyHouse,
   openDatabase,
   PageRuntime,
   PageStore,
@@ -28,6 +26,7 @@ import {
   SensorStore,
   StateStore,
   slugDeviceIds,
+  stockHome,
 } from "@casita/core";
 import { VERSION } from "./version.ts";
 
@@ -144,10 +143,8 @@ export async function createApp(opts: AppOptions): Promise<App> {
   const pages = new PageStore({ db, bus, registry: casaRegistry });
   const automations = new AutomationStore({ db, bus, registry: casaRegistry });
   const sensors = new SensorStore({ db, bus, registry: casaRegistry });
-  // Home is generated once, from the cards and rooms arranged by form before Casa.
-  if (pages.ensure("home", () => homeFromLegacy(legacyHouse(db)))) {
-    log.info("generated the Home page from the arranged cards and rooms");
-  }
+  // A new house gets the stock Home once; from then on the page is the admin's to edit.
+  if (pages.ensure("home", stockHome)) log.info("wrote the stock Home page");
   // A page keeps what it compiled to; after an upgrade of the compiler, that is brought up to date.
   const refreshed = pages.refresh();
   if (refreshed.refreshed.length) log.info("recompiled pages", { pages: refreshed.refreshed });

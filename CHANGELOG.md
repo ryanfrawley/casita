@@ -2,6 +2,15 @@
 
 ## November 2026
 
+- A new house starts with a stock Home page instead of one generated from the cards and rooms
+  arranged before Casa. It is the same shape (every area as a section, a card per device, grouped
+  cards for what belongs to no device, "Not in a room" for the rest), with what a fresh install
+  was missing: the forecast appears as soon as a weather entity exists rather than only if one
+  existed at first start, an empty house says where to add an integration, and the source
+  reads as a page to edit rather than a migration. A stored Home is untouched. Migration 014
+  drops the pre-Casa `cards` table, `devices.card`, `devices.home_hidden` and `areas.display`,
+  which nothing has read since Home became a page.
+
 - La Marzocco espresso machines, through La Marzocco's cloud (`type = "lamarzocco"`, the app
   account's email and password). Each machine has a power switch (brewing mode or standby), a
   `ready` sensor that turns on when the coffee boiler reaches temperature, a `ready at` sensor
