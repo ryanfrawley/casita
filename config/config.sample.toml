@@ -3,7 +3,8 @@
 
 [server]
 port = 8123
-# Admin credential that works only until the first user is created (16+ characters).
+# Bootstrap admin credential: make one up (`openssl rand -hex 16`), 16+ characters. It is honored
+# only until the first user exists; see README.md, then remove it.
 # apiToken = "change-me-change-me"
 # timezone = "America/Los_Angeles"
 # Units readings are shown in: "metric" (default) or "imperial". Stored values are not changed.

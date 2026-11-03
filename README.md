@@ -43,8 +43,21 @@ bun install
 cp config/config.sample.toml config/config.toml
 ```
 
-Open `config/config.toml` and set `apiToken` under `[server]` to any string of 16 or more
-characters. It is the admin credential until the first user exists, and nothing else. The sample
+Casita has no default password. Instead, you make up a bootstrap token, write it into the
+config, and present the same string to create the first user. Generate one and put it in
+`config/config.toml` under `[server]`, uncommenting the `apiToken` line:
+
+```sh
+openssl rand -hex 16     # prints a 32-character token; any string of 16+ characters works
+```
+
+```toml
+[server]
+port = 8123
+apiToken = "paste the token here"
+```
+
+The token is an admin credential only until the first user exists, and nothing else. The sample
 config already has the `demo` integration turned on, so the first start needs no hardware.
 
 ```sh
@@ -52,11 +65,12 @@ bun run web:build        # the web app, into packages/web/dist; the server serve
 bun run start            # http://localhost:8123
 ```
 
-In a second terminal, create the first user with the bootstrap token, then sign in:
+In a second terminal, pass that same token as `CASITA_TOKEN` to create the first user, then sign
+in as that user:
 
 ```sh
-CASITA_TOKEN=<your apiToken> bun run casita user create <username> --role admin
-bun run casita login     # stores a session token in ~/.config/casita/credentials
+CASITA_TOKEN="paste the token here" bun run casita user create <username> --role admin
+bun run casita login     # prompts for the password; stores a session in ~/.config/casita/credentials
 bun run casita ls        # what is in the house and what it is doing
 ```
 
