@@ -46,7 +46,7 @@
   margin-bottom: var(--space-1);
 }
 .ca-empty-inline .ca-empty-title {
-  font: 600 16px / 22px var(--font-sans);
+  font: 500 16px / 22px var(--font-sans);
   letter-spacing: 0;
 }
 .ca-empty-inline .ca-empty-desc {

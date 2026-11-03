@@ -12,6 +12,13 @@ import { useHouse } from "../context.tsx";
 import { EntityDetail } from "../detail.tsx";
 import { domainCounts, type EntityItem, entityList } from "../model.ts";
 
+/** An empty cell, said so rather than left blank. */
+export const None = () => (
+  <span className="app-muted" aria-label="None">
+    —
+  </span>
+);
+
 const TONE = { on: "on", off: "neutral", pending: "pending", unavailable: "unavailable" } as const;
 
 export function Entities() {
@@ -27,6 +34,7 @@ export function Entities() {
         <h1 className="ca-text-title">Entities</h1>
         <TextField
           label="Find"
+          hideLabel
           type="search"
           placeholder="A name, an id or an area"
           value={query}
@@ -53,7 +61,11 @@ export function Entities() {
         />
       ) : (
         <DataTable<EntityItem>
-          caption={`${rows.length} of ${house.entities.length}`}
+          caption={
+            rows.length === house.entities.length
+              ? `${rows.length} entities`
+              : `${rows.length} of ${house.entities.length}`
+          }
           rows={rows}
           onRowClick={(row) => setOpen(row.id)}
           columns={[
@@ -70,8 +82,12 @@ export function Entities() {
               ),
             },
             { key: "id", label: "Id", render: (row) => <CopyChip value={row.id} /> },
-            { key: "area", label: "Area", render: (row) => row.area ?? "" },
-            { key: "device", label: "Device", render: (row) => row.device ?? "" },
+            { key: "area", label: "Area", render: (row) => row.area ?? <None /> },
+            {
+              key: "device",
+              label: "Device",
+              render: (row) => <span className="app-nowrap">{row.device ?? <None />}</span>,
+            },
             {
               key: "state",
               label: "State",

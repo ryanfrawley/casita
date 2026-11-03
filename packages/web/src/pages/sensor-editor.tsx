@@ -18,6 +18,7 @@ import {
   useFormat,
   useReferences,
 } from "./page-editor.tsx";
+import { useSplit } from "./split.tsx";
 
 interface Source {
   source: string;
@@ -91,6 +92,7 @@ function inputsOf(result: CompileResult | undefined): { name: string; ids: strin
 }
 
 export function SensorEditor({ sensorId }: { sensorId: string }) {
+  const split = useSplit();
   const store = useStore();
   const house = useHouse();
   const toast = useToast();
@@ -234,11 +236,11 @@ export function SensorEditor({ sensorId }: { sensorId: string }) {
           ) : null}
         </div>
         <div className="app-casa-editor-actions">
-          <Button variant="quiet" size="sm" onClick={() => setVersionsOpen(true)}>
-            Versions
-          </Button>
           <Button variant="quiet" size="sm" onClick={() => navigate("/automations")}>
             Close
+          </Button>
+          <Button variant="quiet" size="sm" onClick={() => setVersionsOpen(true)}>
+            Versions
           </Button>
           <Button variant="quiet" size="sm" disabled={saving} onClick={format}>
             Format
@@ -252,7 +254,7 @@ export function SensorEditor({ sensorId }: { sensorId: string }) {
           </Button>
         </div>
       </div>
-      <div className="app-casa-editor-panes">
+      <div className="app-casa-editor-panes" ref={split.ref} style={split.style}>
         <div className="app-casa-editor-source">
           <CodeEditor
             value={text}
@@ -274,6 +276,7 @@ export function SensorEditor({ sensorId }: { sensorId: string }) {
             />
           </div>
         </div>
+        {split.handle}
         <div className="app-casa-editor-preview">
           <div className="app-casa-preview-head">
             <span className="app-muted">

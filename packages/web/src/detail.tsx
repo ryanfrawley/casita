@@ -171,15 +171,19 @@ export function EntityDetail({
   entityId,
   onClose,
   onRenamed,
+  onOpenDevice,
 }: {
   entityId: string | null;
   onClose: () => void;
   /** Called when the open entity's id changes, so the sheet can follow it. */
   onRenamed?: (id: string) => void;
+  /** Shows the entity's device; without it the link goes to the Devices page with it open. */
+  onOpenDevice?: (deviceId: string) => void;
 }) {
   const house = useHouse();
   const admin = useIsAdmin();
   const store = useStore();
+  const navigate = useNavigate();
   // A rename arrives as an event carrying both ids; the sheet stays on the same entity.
   useEffect(() => {
     if (!entityId || !onRenamed) return;
@@ -201,6 +205,13 @@ export function EntityDetail({
   }
   const view = entityView(house, entity);
   const changed = view.record?.changedAt;
+  const device = entity.deviceId
+    ? house.devices.find((candidate) => candidate.id === entity.deviceId)
+    : undefined;
+  const openDevice = (deviceId: string) =>
+    onOpenDevice
+      ? onOpenDevice(deviceId)
+      : navigate(`/devices?open=${encodeURIComponent(deviceId)}`);
   return (
     <Sheet
       open
@@ -211,7 +222,23 @@ export function EntityDetail({
           {view.name}
         </span>
       }
-      subtitle={<CopyChip value={view.id} />}
+      subtitle={
+        <span className="app-sheet-sub">
+          <CopyChip value={view.id} />
+          {device ? (
+            // The way up to what the entity is part of.
+            <button
+              type="button"
+              className="app-parent-link"
+              onClick={() => openDevice(String(device.id))}
+            >
+              <Icon name="cpu" size={14} />
+              <span>{String(device.name ?? device.id)}</span>
+              <Icon name="chevron-right" size={14} />
+            </button>
+          ) : null}
+        </span>
+      }
       width={480}
     >
       <div className="app-detail">
@@ -413,6 +440,10 @@ export function useThingSheets(): { open: (thing: Thing) => void; sheets: ReactN
         entityId={drilled ?? (opened?.kind === "entity" ? opened.id : null)}
         onClose={drilled ? () => setDrilled(null) : close}
         onRenamed={drilled ? setDrilled : (id) => setOpened({ kind: "entity", id })}
+        onOpenDevice={(id) => {
+          setDrilled(null);
+          setOpened({ kind: "device", id });
+        }}
       />
     </>
   );

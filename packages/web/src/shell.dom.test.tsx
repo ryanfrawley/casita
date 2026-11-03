@@ -228,3 +228,75 @@ describe("Settings offers the theme", () => {
     expect(el.querySelector(".app-shell-october")).toBeNull();
   });
 });
+
+// ───────── the brand and the footer ─────────
+
+describe("the brand", () => {
+  const brand = (el: HTMLElement) => el.querySelector(".ca-nav-brand a") as HTMLAnchorElement;
+
+  /** Clicks the brand and reports whether its default was prevented by the time it bubbled out. */
+  async function clickBrand(el: HTMLElement, init: MouseEventInit = {}) {
+    let prevented: boolean | undefined;
+    // Bubbles after React's own listener at the root; stops happy-dom following the link.
+    const watch = (event: Event) => {
+      prevented = event.defaultPrevented;
+      event.preventDefault();
+    };
+    document.addEventListener("click", watch);
+    try {
+      await dom.act(() => {
+        brand(el).dispatchEvent(
+          new MouseEvent("click", { bubbles: true, cancelable: true, button: 0, ...init }),
+        );
+      });
+    } finally {
+      document.removeEventListener("click", watch);
+    }
+    return prevented;
+  }
+
+  test("is a link home with a label", async () => {
+    const { el } = await renderShell("/devices");
+    const link = brand(el);
+    expect(link).not.toBeNull();
+    expect(link.getAttribute("href")).toBe("/");
+    expect(link.getAttribute("aria-label")).toBe("Casita, home");
+    expect(link.textContent).toBe("Casita");
+    expect(link.querySelector(".app-brand-mark")).not.toBeNull();
+  });
+
+  test("a plain click goes home in the app and keeps the browser from loading the page", async () => {
+    const { el, went } = await renderShell("/devices");
+    expect(await clickBrand(el)).toBe(true);
+    expect(went).toEqual(["/"]);
+  });
+
+  test("a cmd- or ctrl-click is left to the browser, for a new tab", async () => {
+    const { el, went } = await renderShell("/devices");
+    expect(await clickBrand(el, { metaKey: true })).toBe(false);
+    expect(await clickBrand(el, { ctrlKey: true })).toBe(false);
+    expect(went).toEqual([]);
+  });
+});
+
+describe("the nav footer", () => {
+  const foot = (el: HTMLElement) => el.querySelector(".ca-nav-foot") as HTMLElement;
+
+  test("names who is signed in and offers to sign out, without a role badge", async () => {
+    const { el } = await renderShell("/", {
+      me: { username: "ry", displayName: "Ryan", role: "admin" },
+    });
+    expect(foot(el).querySelector(".app-me")?.textContent).toBe("Ryan");
+    expect([...foot(el).querySelectorAll("button")].map((b) => b.textContent)).toEqual([
+      "Sign out",
+    ]);
+    expect(foot(el).querySelector(".ca-badge")).toBeNull();
+    expect(foot(el).textContent).not.toContain("Admin");
+  });
+
+  test("falls back to the username when there is no display name", async () => {
+    const { el } = await renderShell("/", { me: MEMBER });
+    expect(foot(el).querySelector(".app-me")?.textContent).toBe("ana");
+    expect(foot(el).textContent).not.toContain("Member");
+  });
+});

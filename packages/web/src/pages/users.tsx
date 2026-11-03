@@ -716,7 +716,7 @@ export function Users() {
   return (
     <div className="app-page">
       <header className="app-page-head">
-        <h1 className="ca-text-title">Users and access</h1>
+        <h1 className="ca-text-title">Users & access</h1>
       </header>
       <Tabs
         label="Users and access"

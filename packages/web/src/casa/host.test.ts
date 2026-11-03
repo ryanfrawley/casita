@@ -484,3 +484,85 @@ describe("CasaStore", () => {
     expect(casa.version).toBe(v0);
   });
 });
+
+// ───────── pinWidth ─────────
+
+describe("CasaStore.pinWidth", () => {
+  // This file runs without a DOM, so the store only listens for `resize` when a window is put up
+  // for it. A bare EventTarget is all it reads; the width comes from the measure passed in.
+  const scope = globalThis as unknown as Record<string, unknown>;
+  const withWindow = (run: (resize: (width: number) => void, casa: CasaStore) => void) => {
+    const saved = Object.getOwnPropertyDescriptor(scope, "window");
+    const window = new EventTarget();
+    Object.defineProperty(scope, "window", { value: window, configurable: true, writable: true });
+    let measured = 1200;
+    const casa = new CasaStore(stubStore().store, {
+      width: () => measured,
+      tick: false,
+      timezone: "UTC",
+    });
+    try {
+      run((width) => {
+        measured = width;
+        window.dispatchEvent(new Event("resize"));
+      }, casa);
+    } finally {
+      casa.stop();
+      if (saved) Object.defineProperty(scope, "window", saved);
+      else delete scope.window;
+    }
+  };
+
+  test("unpinned, a resize of the window changes the screen", () => {
+    withWindow((resize, casa) => {
+      expect(casa.currentScreen).toBe("Desktop");
+      resize(400);
+      expect(casa.currentScreen).toBe("Phone");
+    });
+  });
+
+  test("pinning sets the screen from the pinned width", () => {
+    withWindow((_resize, casa) => {
+      const v0 = casa.version;
+      casa.pinWidth(400);
+      expect(casa.currentScreen).toBe("Phone");
+      expect(casa.changedSince(["screen"], v0)).toBe(true);
+    });
+  });
+
+  test("while pinned, a resize of the window leaves the screen alone", () => {
+    withWindow((resize, casa) => {
+      casa.pinWidth(900);
+      expect(casa.currentScreen).toBe("Tablet");
+      const v0 = casa.version;
+      resize(400);
+      expect(casa.currentScreen).toBe("Tablet");
+      resize(2000);
+      expect(casa.currentScreen).toBe("Tablet");
+      expect(casa.changedSince(["screen"], v0)).toBe(false);
+    });
+  });
+
+  test("letting go goes back to the window's width, and resizes count again", () => {
+    withWindow((resize, casa) => {
+      casa.pinWidth(400);
+      resize(900);
+      expect(casa.currentScreen).toBe("Phone");
+      // Released at the window's width as measured now, not as it was when pinned.
+      casa.pinWidth(undefined);
+      expect(casa.currentScreen).toBe("Tablet");
+      resize(1500);
+      expect(casa.currentScreen).toBe("Desktop");
+    });
+  });
+
+  test("a pin can be moved while held", () => {
+    withWindow((resize, casa) => {
+      casa.pinWidth(400);
+      casa.pinWidth(1500);
+      expect(casa.currentScreen).toBe("Desktop");
+      resize(400);
+      expect(casa.currentScreen).toBe("Desktop");
+    });
+  });
+});

@@ -106,17 +106,12 @@ export function Automations() {
       ) : !list ? (
         <Skeleton shape="block" width="100%" height={160} />
       ) : list.length === 0 ? (
+        // Inline, as the derived sensors' is below it; the header holds the way to make one.
         <EmptyState
+          size="inline"
           icon="workflow"
           title="No automations yet"
           description="An automation watches the house and acts for you: a light that follows motion, a schedule, one thing that follows another."
-          actions={
-            admin ? (
-              <Button variant="primary" onClick={() => setCreating(true)}>
-                New automation
-              </Button>
-            ) : undefined
-          }
         />
       ) : (
         <DataTable<Automation>
@@ -309,7 +304,13 @@ function NewAutomation({
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="HallLight"
-          hint={problem && name ? undefined : `Saved as ${automationIdOf(name || "HallLight")}`}
+          hint={
+            !name
+              ? "One word, capitalised: HallLight"
+              : problem
+                ? undefined
+                : `Saved as ${automationIdOf(name)}`
+          }
           error={name ? problem : undefined}
           mono
           autoFocus

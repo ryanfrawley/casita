@@ -8,6 +8,7 @@ import { useHouse } from "./context.tsx";
 import { EntityControls } from "./controls.tsx";
 import { EntityDetail } from "./detail.tsx";
 import { entityView } from "./model.ts";
+import { useNavigate } from "./shell.tsx";
 
 /** How many matches the list shows; more than this wants a narrower search. */
 const SHOWN = 8;
@@ -25,6 +26,7 @@ export function HeaderSearch() {
   const input = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+  const navigate = useNavigate();
   const mac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform);
 
   useEffect(() => {
@@ -99,7 +101,15 @@ export function HeaderSearch() {
           )}
         </div>
       ) : null}
-      <EntityDetail entityId={open} onClose={() => setOpen(null)} onRenamed={setOpen} />
+      <EntityDetail
+        entityId={open}
+        onClose={() => setOpen(null)}
+        onRenamed={setOpen}
+        onOpenDevice={(id) => {
+          setOpen(null);
+          navigate(`/devices?open=${encodeURIComponent(id)}`);
+        }}
+      />
     </div>
   );
 }

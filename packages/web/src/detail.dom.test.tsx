@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { CasaStore } from "./casa/host.ts";
 import { AppProvider } from "./context.tsx";
 import { AreaDetail, DeviceDetail, EntityDetail } from "./detail.tsx";
+import { type Page, Shell } from "./shell.tsx";
 import { EMPTY, type House, reduce, type Store } from "./store.ts";
 
 const dom = setupDom();
@@ -227,5 +228,70 @@ describe("the way to a device's settings", () => {
     expect(settingsButton((await mount(lamp, admin)).el)).toBeUndefined();
     const front = <EntityDetail entityId="lock.front" onClose={noop} />;
     expect(settingsButton((await mount(front, withSettings)).el)).toBeUndefined();
+  });
+});
+
+describe("the way up from an entity to its device", () => {
+  const parentLink = (el: HTMLElement) =>
+    el.querySelector("[role=dialog] .app-parent-link") as HTMLButtonElement | null;
+
+  test("an entity on a device names the device in the sheet's subtitle", async () => {
+    const { el } = await mount(<EntityDetail entityId="light.hall" onClose={noop} />);
+    const link = parentLink(el);
+    expect(link).not.toBeNull();
+    expect(link?.tagName).toBe("BUTTON");
+    expect(link?.textContent).toBe("Hall lamp");
+    expect(link?.closest(".ca-sheet-sub")).not.toBeNull();
+    // The id is still there beside it.
+    expect(el.querySelector("[role=dialog] .ca-sheet-sub")?.textContent).toContain("light.hall");
+  });
+
+  test("an entity with no device has no link", async () => {
+    const { el } = await mount(<EntityDetail entityId="lock.front" onClose={noop} />);
+    expect(title(el)).toBe("Front door");
+    expect(parentLink(el)).toBeNull();
+  });
+
+  test("an entity whose device the house no longer has has no link", async () => {
+    const { el } = await mount(<EntityDetail entityId="light.hall" onClose={noop} />, {
+      devices: [],
+    });
+    expect(parentLink(el)).toBeNull();
+  });
+
+  test("pressing it opens the device through onOpenDevice", async () => {
+    const opened: string[] = [];
+    const { el } = await mount(
+      <EntityDetail
+        entityId="switch.porch"
+        onClose={noop}
+        onOpenDevice={(id) => opened.push(id)}
+      />,
+    );
+    expect(parentLink(el)?.textContent).toBe("Porch switch");
+    await dom.click(parentLink(el));
+    expect(opened).toEqual(["dev_porch"]);
+  });
+
+  test("without onOpenDevice it goes to the Devices page with the device open", async () => {
+    // The page's navigation comes from the Shell around it.
+    const went: string[] = [];
+    const pages: Page[] = [
+      {
+        path: "/",
+        label: "Home",
+        icon: "house",
+        render: () => <EntityDetail entityId="light.hall" onClose={noop} />,
+      },
+    ];
+    const { el } = await mount(
+      <Shell pages={pages} path="/" onNavigate={(to) => went.push(to)} />,
+      {
+        devices: [{ ...LOADED.devices[0], id: "dev lamp/1" }],
+        entities: [entity("light.hall", "Hall light", { deviceId: "dev lamp/1" })],
+      },
+    );
+    await dom.click(parentLink(el));
+    expect(went).toEqual(["/devices?open=dev%20lamp%2F1"]);
   });
 });

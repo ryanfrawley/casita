@@ -44,9 +44,11 @@ import { useThingSheets } from "../detail.tsx";
 import { useNavigate } from "../shell.tsx";
 import type { House } from "../store.ts";
 import { ownStyle, type ThemeInfo } from "../theme.ts";
+import { usePinnedWidth, useSplit, useWidth } from "./split.tsx";
 
 export const CHECK_DEBOUNCE_MS = 300;
-const WIDTHS = { Phone: 420, Tablet: 900, Desktop: 1200 } as const;
+/** The preview's widths: Fit follows the preview pane as it is resized; the rest are fixed. */
+const WIDTHS = { Fit: 0, Phone: 420, Tablet: 900, Desktop: 1200 } as const;
 type Width = keyof typeof WIDTHS;
 
 /** The house as the compiler needs it, from what the app already holds. */
@@ -263,7 +265,9 @@ export function PageEditor({ pageId }: { pageId: string }) {
   const [shown, setShown] = useState<CompileResult["page"]>();
   const [serverDiagnostics, setServerDiagnostics] = useState<Diagnostic[]>([]);
   const [overrides, setOverrides] = useState<ReadonlyMap<string, string>>(new Map());
-  const [width, setWidth] = useState<Width>("Desktop");
+  const [width, setWidth] = useState<Width>("Fit");
+  const split = useSplit();
+  const [previewPane, paneWidth] = useWidth<HTMLDivElement>();
   const [goTo, setGoTo] = useState<{ offset: number; at: number } | null>(null);
   const [versionsOpen, setVersionsOpen] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -298,10 +302,10 @@ export function PageEditor({ pageId }: { pageId: string }) {
   }, [text, registry, compiled, sharedSource]);
 
   // The preview's width and pretend values live in the shared store; they are cleared on leaving.
-  useEffect(() => {
-    casa.setWidth(WIDTHS[width]);
-    return () => casa.setWidth(window.innerWidth);
-  }, [casa, width]);
+  // `screen` is read from the preview's own width, not the window's, so a page laid out for
+  // a phone or a tablet shows as it would there.
+  const previewWidth = WIDTHS[width] || paneWidth;
+  usePinnedWidth(casa, previewWidth);
   useEffect(() => {
     const parsed = new Map<string, Value>();
     for (const [id, value] of overrides) {
@@ -464,11 +468,11 @@ export function PageEditor({ pageId }: { pageId: string }) {
           ) : null}
         </div>
         <div className="app-casa-editor-actions">
-          <Button variant="quiet" size="sm" onClick={() => setVersionsOpen(true)}>
-            Versions
-          </Button>
           <Button variant="quiet" size="sm" onClick={() => navigate("/")}>
             Close
+          </Button>
+          <Button variant="quiet" size="sm" onClick={() => setVersionsOpen(true)}>
+            Versions
           </Button>
           <Button variant="quiet" size="sm" disabled={saving} onClick={format}>
             Format
@@ -482,7 +486,7 @@ export function PageEditor({ pageId }: { pageId: string }) {
           </Button>
         </div>
       </div>
-      <div className="app-casa-editor-panes">
+      <div className="app-casa-editor-panes" ref={split.ref} style={split.style}>
         <div className="app-casa-editor-source">
           <CodeEditor
             value={text}
@@ -534,15 +538,29 @@ export function PageEditor({ pageId }: { pageId: string }) {
             )}
           </div>
         </div>
-        <div className="app-casa-editor-preview" style={{ maxWidth: WIDTHS[width] }}>
+        {split.handle}
+        <div className="app-casa-editor-preview" ref={previewPane}>
           <div className="app-casa-preview-head">
             <span className="app-muted">
               Live preview on the real house: a control here really sends. Alt-click a card to find
               it in the source.
             </span>
+            {previewWidth ? (
+              <span className="app-muted app-casa-preview-size">
+                {width === "Fit"
+                  ? `${Math.round(previewWidth)} px`
+                  : `${width}, ${previewWidth} px`}
+              </span>
+            ) : null}
           </div>
           {shown ? (
-            <CasaPage page={shown} onLocate={locate} className="app-page app-casa-preview-page" />
+            // A fixed width wider than the pane scrolls sideways rather than squeezing the page.
+            <div
+              className="app-casa-preview-frame"
+              style={WIDTHS[width] ? { width: WIDTHS[width] } : undefined}
+            >
+              <CasaPage page={shown} onLocate={locate} className="app-page app-casa-preview-page" />
+            </div>
           ) : (
             <EmptyState
               size="inline"
@@ -624,6 +642,9 @@ export function HandlerList({ handlers }: { handlers: CompileResult["serverHandl
 // ───────── themes ─────────
 
 export function ThemeEditor({ themeId }: { themeId: string }) {
+  const split = useSplit();
+  const [previewPane, paneWidth] = useWidth<HTMLDivElement>();
+  usePinnedWidth(useCasaStore(), paneWidth);
   const store = useStore();
   const house = useHouse();
   const themes = useThemes();
@@ -774,7 +795,7 @@ export function ThemeEditor({ themeId }: { themeId: string }) {
           </Button>
         </div>
       </div>
-      <div className="app-casa-editor-panes">
+      <div className="app-casa-editor-panes" ref={split.ref} style={split.style}>
         <div className="app-casa-editor-source">
           <CodeEditor
             value={text}
@@ -796,7 +817,8 @@ export function ThemeEditor({ themeId }: { themeId: string }) {
             <Problems diagnostics={diagnostics} source={text} onPick={() => {}} />
           </div>
         </div>
-        <div className="app-casa-editor-preview">
+        {split.handle}
+        <div className="app-casa-editor-preview" ref={previewPane}>
           <div className="app-casa-preview-head">
             <span className="app-muted">Home, drawn in this theme as you type.</span>
           </div>
@@ -824,6 +846,9 @@ ${HEADERS_SOURCE.split("\n")
 `;
 
 export function ComponentsEditor() {
+  const split = useSplit();
+  const [previewPane, paneWidth] = useWidth<HTMLDivElement>();
+  usePinnedWidth(useCasaStore(), paneWidth);
   const store = useStore();
   const house = useHouse();
   const themes = useThemes();
@@ -997,7 +1022,7 @@ export function ComponentsEditor() {
           </Button>
         </div>
       </div>
-      <div className="app-casa-editor-panes">
+      <div className="app-casa-editor-panes" ref={split.ref} style={split.style}>
         <div className="app-casa-editor-source">
           <CodeEditor
             value={text}
@@ -1014,7 +1039,8 @@ export function ComponentsEditor() {
             <Problems diagnostics={diagnostics} source={text} onPick={() => {}} />
           </div>
         </div>
-        <div className="app-casa-editor-preview">
+        {split.handle}
+        <div className="app-casa-editor-preview" ref={previewPane}>
           <div className="app-casa-preview-head">
             <span className="app-muted">Home, drawn with these components as you type.</span>
           </div>

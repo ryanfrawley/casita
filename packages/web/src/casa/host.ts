@@ -16,6 +16,7 @@ import type {
 import { dep, overridden } from "@casita/core/casa";
 
 export { overridden };
+
 import { formatTime } from "@casita/ui";
 import type { House, Store } from "../store.ts";
 
@@ -106,7 +107,10 @@ export class CasaStore {
     this.timezone = options.timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone;
     this.stops.push(store.subscribe(() => this.onHouse(store.getState())));
     if (typeof window !== "undefined") {
-      const onResize = () => this.setWidth(this.measure());
+      // While the editor holds the width, the preview follows its pane, not the window.
+      const onResize = () => {
+        if (this.pinned === undefined) this.setWidth(this.measure());
+      };
       window.addEventListener("resize", onResize);
       this.stops.push(() => window.removeEventListener("resize", onResize));
     }
@@ -117,6 +121,7 @@ export class CasaStore {
   }
 
   private readonly measure: () => number;
+  private pinned: number | undefined;
   readonly timezone: string;
 
   stop(): void {
@@ -171,7 +176,16 @@ export class CasaStore {
     this.setWidth(this.width, true);
   }
 
-  /** The editor narrows the preview to a chosen width. */
+  /**
+   * The editor's preview width, which the window's size no longer changes; undefined lets go,
+   * back to the window's width.
+   */
+  pinWidth(width: number | undefined): void {
+    this.pinned = width;
+    this.setWidth(width ?? this.measure());
+  }
+
+  /** The width `screen` is read from. */
   setWidth(width: number, force = false): void {
     this.width = width;
     const screen = screenFor(width, this.breakpoints);

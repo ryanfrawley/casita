@@ -36,7 +36,7 @@
 .ca-pill-on,
 .ca-pill-on:hover {
   background: color-mix(in srgb, var(--ink) 12%, transparent);
-  border-color: var(--line-strong);
+  border-color: var(--line);
 }
 .ca-pill-on .ca-icon {
   color: var(--ink);

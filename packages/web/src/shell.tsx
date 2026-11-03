@@ -1,6 +1,6 @@
 // The frame around every page once signed in: navigation down the left, the page beside it.
 
-import { Badge, Button, formatTime, SideNav, Toast } from "@casita/ui";
+import { Button, formatTime, SideNav, Toast } from "@casita/ui";
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { useCasaStore, useHouse, useStore, useThemes } from "./context.tsx";
 import { matchPath } from "./routes.ts";
@@ -31,8 +31,6 @@ export interface ThemeChoice {
 }
 const ThemeChoiceContext = createContext<ThemeChoice>({ theme: "system", setTheme: () => {} });
 export const useThemeChoice = () => useContext(ThemeChoiceContext);
-
-const ROLE_ICON: Record<string, string> = { admin: "shield", member: "user", guest: "eye" };
 
 export function Shell({
   pages,
@@ -82,10 +80,20 @@ export function Shell({
         value={page?.nav ?? page?.path}
         onSelect={onNavigate}
         brand={
-          <span className="app-brand">
+          // The mark is the way home, as Home in the list is.
+          <a
+            className="app-brand"
+            href="/"
+            aria-label="Casita, home"
+            onClick={(event) => {
+              if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+              event.preventDefault();
+              onNavigate("/");
+            }}
+          >
             <BrandMark moon={october} />
             <span>Casita</span>
-          </span>
+          </a>
         }
         items={pages
           .filter((item) => !item.hidden)
@@ -97,16 +105,9 @@ export function Shell({
           }))}
         footer={
           <div className="app-nav-foot">
-            <div className="app-me">
-              <span className="ca-text-label">
-                {String(house.me?.displayName || house.me?.username || "")}
-              </span>
-              {role ? (
-                <Badge tone={role === "admin" ? "brand" : "neutral"} icon={ROLE_ICON[role]}>
-                  {role.charAt(0).toUpperCase() + role.slice(1)}
-                </Badge>
-              ) : null}
-            </div>
+            <span className="app-me ca-text-label">
+              {String(house.me?.displayName || house.me?.username || "")}
+            </span>
             <Button variant="quiet" size="sm" onClick={() => void store.logout()}>
               Sign out
             </Button>
@@ -114,21 +115,21 @@ export function Shell({
         }
       />
       <main className="app-main" id="main" ref={main} tabIndex={-1}>
-        {house.phase === "ready" ? (
-          <header className="app-header">
-            <HeaderSearch />
-            <Clock />
-          </header>
-        ) : null}
-        {house.phase === "reconnecting" ? (
-          <div className="app-banner">
-            <Toast
-              tone="pending"
-              message="Reconnecting to the house. What you see is the last it reported."
-            />
-          </div>
-        ) : null}
         <NavigateContext.Provider value={onNavigate}>
+          {house.phase === "ready" ? (
+            <header className="app-header">
+              <HeaderSearch />
+              <Clock />
+            </header>
+          ) : null}
+          {house.phase === "reconnecting" ? (
+            <div className="app-banner">
+              <Toast
+                tone="pending"
+                message="Reconnecting to the house. What you see is the last it reported."
+              />
+            </div>
+          ) : null}
           <ThemeChoiceContext.Provider value={{ theme, setTheme }}>
             {page?.render(params)}
           </ThemeChoiceContext.Provider>

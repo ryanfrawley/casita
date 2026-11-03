@@ -79,7 +79,7 @@ const editorTheme = EditorView.theme({
   "&.cm-focused": { outline: "none" },
   ".cm-tooltip": {
     backgroundColor: "var(--surface-raised)",
-    border: "1px solid var(--line-strong)",
+    border: "1px solid var(--line)",
     borderRadius: "var(--radius-sm)",
     color: "var(--ink)",
     boxShadow: "var(--shadow-lift)",
@@ -106,17 +106,21 @@ const editorTheme = EditorView.theme({
     backgroundColor: "var(--lamp-soft)",
     textDecoration: "underline solid var(--ink)",
   },
-  ".cm-tooltip.app-casa-hover": {
-    padding: "var(--space-2) var(--space-3)",
-    font: "400 13px / 1.4 var(--font-body)",
+  // CodeMirror wraps the card in its own `.cm-tooltip`, so the card is styled by its class alone.
+  ".app-casa-hover": {
+    display: "flex",
+    flexDirection: "column",
+    gap: "2px",
+    padding: "var(--space-3)",
+    font: "400 13px / 18px var(--font-sans)",
     maxWidth: "320px",
   },
-  ".app-casa-hover-title": { fontWeight: "600" },
-  ".app-casa-hover-id": { font: "400 12px var(--font-mono)", color: "var(--ink-muted)" },
+  ".app-casa-hover-title": { fontWeight: "500", marginBottom: "2px" },
+  ".app-casa-hover-id": { font: "400 12px / 16px var(--font-mono)", color: "var(--ink-muted)" },
   ".app-casa-hover-line": { color: "var(--ink-muted)" },
   ".app-casa-hover-missing": { color: "var(--danger)" },
   ".app-casa-hover-open": {
-    display: "block",
+    alignSelf: "flex-start",
     marginTop: "var(--space-2)",
     padding: "0",
     border: "none",

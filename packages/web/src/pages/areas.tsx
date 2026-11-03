@@ -88,7 +88,7 @@ export function Areas() {
       <header className="app-page-head">
         <h1 className="ca-text-title">Areas</h1>
         {admin ? (
-          <Button variant="primary" icon="plus" onClick={() => setAdding(true)}>
+          <Button icon="plus" onClick={() => setAdding(true)}>
             Add area
           </Button>
         ) : null}
@@ -98,13 +98,6 @@ export function Areas() {
           icon="map"
           title="No areas yet"
           description="An area is a room or a zone. Put devices in one and Home groups them by it."
-          actions={
-            admin ? (
-              <Button variant="primary" onClick={() => setAdding(true)}>
-                Add area
-              </Button>
-            ) : undefined
-          }
         />
       ) : (
         <DataTable<AreaItem>

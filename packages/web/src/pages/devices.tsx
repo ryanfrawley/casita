@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useHouse } from "../context.tsx";
 import { DeviceDetail, EntityDetail } from "../detail.tsx";
 import { type DeviceItem, deviceList } from "../model.ts";
+import { None } from "./entities.tsx";
 
 /** A device named in the address (`?open=thermostat`) opens its sheet; the address then forgets it. */
 function openedByAddress(): string | null {
@@ -25,8 +26,9 @@ export function Devices() {
         <h1 className="ca-text-title">Devices</h1>
         <TextField
           label="Find"
+          hideLabel
           type="search"
-          placeholder="A name, a maker or an integration"
+          placeholder="Name, maker or integration"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
@@ -42,12 +44,16 @@ export function Devices() {
         />
       ) : (
         <DataTable<DeviceItem>
-          caption={`${rows.length} of ${house.devices.length}`}
+          caption={
+            rows.length === house.devices.length
+              ? `${rows.length} devices`
+              : `${rows.length} of ${house.devices.length}`
+          }
           rows={rows}
           onRowClick={(row) => setOpen(row.id)}
           columns={[
             // The area first: a house has many "Motion Sensor"s, and the room tells them apart.
-            { key: "area", label: "Area", render: (row) => row.area ?? "" },
+            { key: "area", label: "Area", render: (row) => row.area ?? <None /> },
             {
               key: "name",
               label: "Name",
@@ -88,7 +94,15 @@ export function Devices() {
         onOpenEntity={setEntity}
         onRenamed={setOpen}
       />
-      <EntityDetail entityId={entity} onClose={() => setEntity(null)} onRenamed={setEntity} />
+      <EntityDetail
+        entityId={entity}
+        onClose={() => setEntity(null)}
+        onRenamed={setEntity}
+        onOpenDevice={(id) => {
+          setEntity(null);
+          setOpen(id);
+        }}
+      />
     </div>
   );
 }

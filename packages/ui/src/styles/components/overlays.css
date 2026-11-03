@@ -41,7 +41,7 @@
 }
 .ca-dialog-title {
   margin: 0;
-  font: 600 18px / 24px var(--font-sans);
+  font: 500 18px / 24px var(--font-sans);
 }
 .ca-dialog-desc {
   margin: var(--space-2) 0 0;
@@ -97,7 +97,7 @@
 }
 .ca-sheet-title {
   margin: 0;
-  font: 600 18px / 24px var(--font-sans);
+  font: 500 18px / 24px var(--font-sans);
 }
 .ca-sheet-sub {
   font: 400 13px / 18px var(--font-sans);
