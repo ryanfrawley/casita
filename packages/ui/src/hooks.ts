@@ -149,11 +149,27 @@ export function useGridSnap(
       frame = 0;
       const items = [...el.querySelectorAll<HTMLElement>(selector)];
       for (const item of items) item.style.minHeight = "";
-      const heights = items.map((item) => item.getBoundingClientRect().height);
+      // A card's edge is a line, and lines never add height: the grid takes the card inside its
+      // borders (a theme such as October edges its cards), and the floor is set in whichever box
+      // `min-height` measures, so the borders and padding are not counted twice.
+      const boxes = items.map((item) => {
+        const css = getComputedStyle(item);
+        const px = (value: string) => Number.parseFloat(value) || 0;
+        const borders = px(css.borderTopWidth) + px(css.borderBottomWidth);
+        const padding = px(css.paddingTop) + px(css.paddingBottom);
+        const height = item.getBoundingClientRect().height - borders;
+        return { height, borders, padding, borderBox: css.boxSizing === "border-box" };
+      });
       items.forEach((item, i) => {
-        const height = heights[i] ?? 0;
+        const box = boxes[i];
+        const height = box?.height ?? 0;
         const snapped = gridHeight(height, unit, step);
-        item.style.minHeight = snapped > height ? `${snapped}px` : "";
+        const floor = !box
+          ? snapped
+          : box.borderBox
+            ? snapped + box.borders
+            : snapped - box.padding;
+        item.style.minHeight = snapped > height ? `${floor}px` : "";
         if (!watched.has(item)) {
           watched.add(item);
           resize.observe(item);

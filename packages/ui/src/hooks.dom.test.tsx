@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { useRef } from "react";
+import { type CSSProperties, useRef } from "react";
 import { gridHeight, useGridSnap } from "./hooks.ts";
 import { setupDom } from "./test-dom.ts";
 
@@ -45,14 +45,14 @@ afterAll(() => {
   }
 });
 
-function Grid({ heights }: { heights: number[] }) {
+function Grid({ heights, style }: { heights: number[]; style?: CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
   useGridSnap(ref, ".card");
   return (
     <div ref={ref}>
       {heights.map((h, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: a fixed list
-        <div key={i} className="card" data-h={h} />
+        <div key={i} className="card" data-h={h} style={style} />
       ))}
     </div>
   );
@@ -74,6 +74,25 @@ describe("useGridSnap", () => {
   test("a card between units is floored at the next unit; one on a unit, or empty, is left alone", async () => {
     const el = await dom.render(<Grid heights={[70, 56, 0]} />);
     expect(floors(el)).toEqual(["128px", "", ""]);
+  });
+
+  test("an edged card's borders are lines: a card a unit tall inside them is left alone", async () => {
+    // October edges its cards in 1px: 128 inside the borders is two units, 130 outside them.
+    const el = await dom.render(
+      <Grid heights={[130, 72]} style={{ border: "1px solid", boxSizing: "content-box" }} />,
+    );
+    expect(floors(el)).toEqual(["", "128px"]);
+  });
+
+  test("the floor is set in the box min-height measures", async () => {
+    const el = await dom.render(
+      <Grid heights={[72]} style={{ border: "1px solid", boxSizing: "border-box" }} />,
+    );
+    expect(floors(el)).toEqual(["130px"]);
+    const padded = await dom.render(
+      <Grid heights={[70]} style={{ padding: "8px 0", boxSizing: "content-box" }} />,
+    );
+    expect(floors(padded)).toEqual(["112px"]);
   });
 
   test("without ResizeObserver it sets nothing", async () => {
