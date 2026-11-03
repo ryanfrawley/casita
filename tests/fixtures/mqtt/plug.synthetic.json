@@ -1,0 +1,28 @@
+{
+  "casita/switch/plug_1/relay/config": {
+    "name": "Coffee plug",
+    "uniq_id": "plug_1_relay",
+    "~": "plugs/plug_1",
+    "stat_t": "~/state",
+    "cmd_t": "~/set",
+    "avty_t": "~/availability",
+    "val_tpl": "{{ value_json.relay }}",
+    "dev": { "ids": ["plug_1"], "name": "Plug 1", "mf": "Acme", "mdl": "P110", "sw": "1.4.0" }
+  },
+  "casita/sensor/plug_1/power/config": {
+    "name": "Coffee plug power",
+    "unique_id": "plug_1_power",
+    "state_topic": "plugs/plug_1/state",
+    "availability_topic": "plugs/plug_1/availability",
+    "value_template": "{{ value_json.meter.power }}",
+    "unit_of_measurement": "W",
+    "device_class": "power",
+    "device": {
+      "identifiers": ["plug_1"],
+      "name": "Plug 1",
+      "manufacturer": "Acme",
+      "model": "P110",
+      "sw_version": "1.4.0"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+# Copy to config/config.toml. The server rewrites that file when config is set through the API,
+# so comments in it are not preserved.
+
+[server]
+port = 8123
+# Admin credential that works only until the first user is created (16+ characters).
+# apiToken = "change-me-change-me"
+# timezone = "America/Los_Angeles"
+# Units readings are shown in: "metric" (default) or "imperial". Stored values are not changed.
+# units = "imperial"
+# The web app is served from this port once built (`bun run web:build`). To serve only the API:
+# web = false
+
+[server.history]
+defaultDays = 30          # raw retention when nothing more specific applies
+minIntervalMs = 0         # skip raw sensor writes closer than this
+
+# [server.history.domains.lock]
+# raw = 90
+
+[[integration]]
+type = "demo"
+
+# [[integration]]
+# type = "mqtt"
+# brokerUrl = "mqtt://localhost:1883"
+# discoveryPrefix = "casita"   # "homeassistant" for devices left on their default prefix
+
+# [[integration]]
+# type = "zigbee2mqtt"
+# brokerUrl = "mqtt://localhost:1883"
+# baseTopic = "zigbee2mqtt"
+
+# [[integration]]
+# type = "esphome"
+# discover = false
+#
+# [[integration.devices]]
+# host = "garage-node.local"
+# encryptionKey = "base64 of the device's api encryption key"
+
+# [[integration]]
+# type = "zwave-js"
+# serverUrl = "ws://localhost:3000"
+
+# [[integration]]
+# type = "rachio"
+# apiKey = "from the Rachio app: Account Settings, Get API Key"
+# defaultRunMinutes = 10
+
+# [[integration]]
+# type = "lamarzocco"          # La Marzocco espresso machines, through La Marzocco's cloud
+# username = "the La Marzocco app account's email"
+# password = "..."
+# serial = "MR012345"          # optional: one machine; unset takes every coffee machine
+# pollSeconds = 60             # dashboard reads while the live socket is down
+# timeZone = "America/Los_Angeles"  # for the "ready at" time; unset uses the server's
+
+# [[integration]]
+# type = "qolsys"              # a Qolsys IQ Panel (ADT Command) over its local Control4 interface
+# host = "10.0.0.50"
+# token = "from the panel: Dealer settings, 3rd Party Connections, Control4, Reveal Secure Token"
+# userCode = "123456"          # a six-digit user code made for Casita
+# pollSeconds = 60
+
+# [[integration]]
+# type = "open-meteo"       # weather, no account or key
+# latitude = 47.6062
+# longitude = -122.3321
+# label = "Weather"         # names the entities: weather.weather, sensor.weather_temperature
+# pollMinutes = 15
+# airQuality = true
+# aqi = "us"                # or "european"
+
+# [[integration]]
+# type = "tesla"
+# clientId = "..."
+# clientSecret = "..."
+# redirectUri = "https://your.domain/tesla/callback"
+# region = "na"             # na, eu, or cn
+# pollMinutes = 30
+
+# [[integration]]
+# type = "teslamate"
+# brokerUrl = "mqtts://broker.example:8883"
+# certFile = "/path/to/client.crt"   # only for a broker that requires mutual TLS
+# keyFile = "/path/to/client.key"
+
+# [[auth.oidc]]
+# name = "home"
+# issuer = "https://id.example.com"
+# clientId = "casita"
+# clientSecret = "..."
+# redirectUrl = "http://localhost:8123/api/auth/oidc/home/callback"
+# defaultRole = "guest"

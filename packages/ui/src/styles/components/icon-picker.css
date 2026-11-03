@@ -1,0 +1,52 @@
+/* IconPicker. Not in the design system yet; drawn with its tokens. */
+.ca-icons-search {
+  margin-bottom: var(--space-2);
+}
+.ca-icons-grid {
+  display: grid;
+  max-height: 264px;
+  overflow-y: auto;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border: var(--surface-control-border, 1px solid var(--line-strong));
+  /* A tall grid takes the control radius only up to a card's: a pill would clip its corners. */
+  border-radius: min(var(--surface-control-radius, var(--radius-sm)), var(--radius-md));
+  background: var(--surface-control-background, var(--surface-sunken));
+}
+.ca-icons-opt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.ca-icons-opt:hover {
+  background: var(--plaster);
+  color: var(--ink);
+}
+.ca-icons-default {
+  border-style: dashed;
+  border-color: var(--line-strong);
+}
+.ca-icons-on,
+.ca-icons-on:hover {
+  background: var(--surface-raised);
+  border-color: var(--terracotta);
+  color: var(--terracotta-ink);
+  box-shadow: var(--shadow-tile);
+}
+.ca-icons-opt:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.ca-icons-none {
+  grid-column: 1 / -1;
+  padding: var(--space-2);
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+}

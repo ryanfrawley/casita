@@ -1,0 +1,63 @@
+/* What every Casita page starts from. Every value is a token from tokens.css; prefix ca-. */
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--plaster);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+.ca-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 18px;
+}
+.ca-icon {
+  flex: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+.ca-spin {
+  animation: ca-spin 1s linear infinite;
+}
+@keyframes ca-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Keyboard focus: a 2px sky ring with a 2px gap, on everything that takes focus. */
+:where(
+  .ca-btn,
+  .ca-tile,
+  .ca-input,
+  .ca-seg-opt,
+  .ca-bgroup-opt,
+  .ca-pill,
+  .ca-toggle,
+  .ca-dsec-toggle,
+  .ca-status,
+  .ca-area-toggle
+):focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+:where(
+  .ca-iconbtn,
+  .ca-stepper-btn,
+  .ca-tab,
+  .ca-nav-item,
+  .ca-copy-btn,
+  .ca-pop-item,
+  .ca-scene,
+  .ca-code-scroll,
+  .ca-tabpanel,
+  .ca-dialog,
+  .ca-sheet
+):focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.ca-dialog:focus,
+.ca-sheet:focus {
+  outline: none;
+}

@@ -1,0 +1,73 @@
+{
+  "serialNumber": "MR012345",
+  "type": "CoffeeMachine",
+  "name": "Linea Mini R",
+  "location": "HOME_OR_DWELLING_SPACE",
+  "modelCode": "LINEAMINIR",
+  "modelName": "LINEA MINI 2023",
+  "connected": true,
+  "connectionDate": 1762000000000,
+  "offlineMode": false,
+  "requireFirmwareUpdate": false,
+  "availableFirmwareUpdate": false,
+  "coffeeStation": null,
+  "imageUrl": "https://lion.lamarzocco.io/img/thing-model/list/lineaminir/lineaminir-1-c-bianco.png",
+  "bleAuthToken": null,
+  "runningCommands": [],
+  "widgets": [
+    {
+      "code": "CMMachineStatus",
+      "index": 1,
+      "output": {
+        "status": "StandBy",
+        "availableModes": ["BrewingMode", "StandBy"],
+        "mode": "StandBy",
+        "nextStatus": null,
+        "brewingStartTime": null,
+        "lastCoffee": null,
+        "lastFlush": null
+      },
+      "tutorialUrl": null
+    },
+    {
+      "code": "CMCoffeeBoiler",
+      "index": 1,
+      "output": {
+        "status": "StandBy",
+        "enabled": true,
+        "enabledSupported": false,
+        "targetTemperature": 94.0,
+        "targetTemperatureMin": 80,
+        "targetTemperatureMax": 100,
+        "targetTemperatureStep": 0.1,
+        "readyStartTime": null
+      },
+      "tutorialUrl": null
+    },
+    {
+      "code": "CMSteamBoilerLevel",
+      "index": 1,
+      "output": {
+        "status": "StandBy",
+        "enabled": true,
+        "enabledSupported": true,
+        "targetLevel": "Level1",
+        "targetLevelSupported": true,
+        "readyStartTime": null
+      },
+      "tutorialUrl": null
+    },
+    {
+      "code": "CMPreExtraction",
+      "index": 1,
+      "output": { "availableModes": ["PreBrewing", "Disabled"], "mode": "Disabled" },
+      "tutorialUrl": null
+    },
+    {
+      "code": "CMBackFlush",
+      "index": 1,
+      "output": { "lastCleaningStartTime": null, "status": "Off" },
+      "tutorialUrl": null
+    }
+  ]
+}

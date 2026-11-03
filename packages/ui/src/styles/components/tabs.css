@@ -1,0 +1,46 @@
+/* Tabs */
+.ca-tablist {
+  display: flex;
+  gap: var(--space-4);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+.ca-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 44px;
+  padding: 0 2px;
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--ink-muted);
+  font: 500 14px / 20px var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ca-tab:hover {
+  color: var(--ink);
+}
+.ca-tab-on {
+  color: var(--ink);
+  border-bottom-color: var(--terracotta);
+}
+.ca-tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.ca-tab-count {
+  padding: 0 6px;
+  border-radius: var(--radius-arch);
+  background: var(--surface-sunken);
+  font: 500 12px / 18px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-tabpanel {
+  padding-top: var(--space-6);
+}
+.ca-tabpanel:focus:not(:focus-visible) {
+  outline: none;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@casita/ui",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/index.css",
+    "./assets/*": "./src/assets/*",
+    "./test-dom": "./src/test-dom.ts"
+  },
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "happy-dom": "^20.14.5"
+  },
+  "scripts": {
+    "tokens": "bun scripts/tokens.ts",
+    "icons": "bun scripts/icons.ts",
+    "gallery": "bun gallery/dev.ts"
+  }
+}

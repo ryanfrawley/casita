@@ -1,0 +1,19 @@
+{
+  "name": "@casita/integration-esphome",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@casita/core": "workspace:*",
+    "@noble/ciphers": "^2.4.0",
+    "protobufjs": "^8.8.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@casita/integration-testing": "workspace:*"
+  }
+}

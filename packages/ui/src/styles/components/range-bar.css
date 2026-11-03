@@ -1,0 +1,54 @@
+/* RangeBar: drawn as a Scale is, the whole scale a faint line and the span a bold one in its
+   tone over it; the current value a small dot, ringed in the card. */
+.ca-rangebar {
+  position: relative;
+  display: block;
+  height: 6px;
+}
+.ca-rangebar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: var(--radius-arch);
+  background: color-mix(in srgb, var(--ink-muted) 30%, transparent);
+}
+.ca-rangebar-fill {
+  position: absolute;
+  top: 50%;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: var(--radius-arch);
+  background: var(--ink-muted);
+}
+.ca-rangebar-ember .ca-rangebar-fill {
+  background: var(--ember);
+}
+.ca-rangebar-sky .ca-rangebar-fill {
+  background: var(--sky);
+}
+.ca-rangebar-lamp .ca-rangebar-fill {
+  background: var(--lamp);
+}
+.ca-rangebar-sage .ca-rangebar-fill {
+  background: var(--sage);
+}
+.ca-rangebar-danger .ca-rangebar-fill {
+  background: var(--danger);
+}
+.ca-rangebar-accent .ca-rangebar-fill {
+  background: var(--ca-accent, var(--lamp));
+}
+.ca-rangebar-mark {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 2px var(--surface-raised);
+}

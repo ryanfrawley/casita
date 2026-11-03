@@ -1,0 +1,69 @@
+{
+  "info": {
+    "name": "garage-node",
+    "friendlyName": "Garage",
+    "macAddress": "AC:BC:32:89:0E:A9",
+    "esphomeVersion": "2026.8.0",
+    "model": "esp32dev",
+    "manufacturer": "Espressif"
+  },
+  "entities": [
+    { "type": "Switch", "key": 101, "objectId": "relay", "name": "Relay" },
+    {
+      "type": "Light",
+      "key": 102,
+      "objectId": "strip",
+      "name": "Strip",
+      "supportedColorModes": [47],
+      "minMireds": 153,
+      "maxMireds": 500
+    },
+    {
+      "type": "Light",
+      "key": 103,
+      "objectId": "lamp",
+      "name": "Work lamp",
+      "supportedColorModes": [1]
+    },
+    {
+      "type": "Sensor",
+      "key": 104,
+      "objectId": "temperature",
+      "name": "Temperature",
+      "unitOfMeasurement": "°C",
+      "accuracyDecimals": 1,
+      "deviceClass": "temperature"
+    },
+    {
+      "type": "BinarySensor",
+      "key": 105,
+      "objectId": "door",
+      "name": "Door",
+      "deviceClass": "garage_door"
+    },
+    {
+      "type": "Cover",
+      "key": 106,
+      "objectId": "shutter",
+      "name": "Shutter",
+      "supportsPosition": true,
+      "supportsStop": true
+    },
+    { "type": "Button", "key": 107, "objectId": "restart", "name": "Restart" }
+  ],
+  "states": [
+    { "type": "Switch", "key": 101, "state": false },
+    {
+      "type": "Light",
+      "key": 102,
+      "state": true,
+      "brightness": 0.5,
+      "colorMode": 11,
+      "colorTemperature": 250
+    },
+    { "type": "Light", "key": 103, "state": false },
+    { "type": "Sensor", "key": 104, "state": 21.46 },
+    { "type": "BinarySensor", "key": 105, "state": true },
+    { "type": "Cover", "key": 106, "position": 0.25, "currentOperation": 0 }
+  ]
+}

@@ -1,0 +1,63 @@
+/* WeatherEffect */
+/* The weather over a card, faintly, in the card's muted ink: two canvases filling their
+   positioned parent, one behind the parent's content and one in front (the parent isolates,
+   so the indexes stay inside it), neither under a pointer. A theme sets `--ca-wx-color` and
+   `--ca-wx-opacity` to tune it. */
+.ca-wx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  color: var(--ca-wx-color, var(--ink-muted));
+  opacity: var(--ca-wx-opacity, 0.55);
+  /* Cloud is lit in the raised surface and shaded in the strong line; at night, lit in the
+     muted ink and shaded in the sunken surface, lighter than the sky as a moonlit cloud is. */
+  --ca-wx-cloud-light: var(--surface-raised);
+  --ca-wx-cloud-shade: var(--line-strong);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ca-wx {
+    --ca-wx-cloud-light: var(--ink-muted);
+    --ca-wx-cloud-shade: var(--surface-sunken);
+  }
+}
+:root[data-theme="dark"] .ca-wx {
+  --ca-wx-cloud-light: var(--ink-muted);
+  --ca-wx-cloud-shade: var(--surface-sunken);
+}
+.ca-wx-back {
+  z-index: -1;
+}
+.ca-wx-front {
+  z-index: 1;
+}
+.ca-wx-sky {
+  color: var(--ca-wx-color, var(--sky));
+}
+/* What holds a WeatherEffect: the canvases are clipped to its corners and kept about its words. */
+.ca-wx-host {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+/* In fog the words soften, the large ones most: small words seem nearer and blur less. In
+   haze, less so. The host names its condition; the words say how far away they are. */
+.ca-wx-host .ca-wx-far,
+.ca-wx-host .ca-wx-near {
+  transition: filter 1.2s ease;
+}
+.ca-wx-host .ca-wx-far {
+  filter: blur(var(--ca-wx-blur-far, 0));
+}
+.ca-wx-host .ca-wx-near {
+  filter: blur(var(--ca-wx-blur-near, 0));
+}
+.ca-wx-of-fog {
+  --ca-wx-blur-far: 0.8px;
+  --ca-wx-blur-near: 0.25px;
+}
+.ca-wx-of-haze {
+  --ca-wx-blur-far: 0.45px;
+  --ca-wx-blur-near: 0.12px;
+}

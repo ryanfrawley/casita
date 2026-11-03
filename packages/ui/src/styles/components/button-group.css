@@ -1,0 +1,73 @@
+/* ButtonGroup: SegmentedControl's track, its segments equal and each lit on its own. What is
+   on is tinted in the accent, the card's inside a card, as a toggle that is on is. */
+.ca-bgroup {
+  display: flex;
+  width: 100%;
+  padding: 2px;
+  gap: 2px;
+  border-radius: var(--surface-control-radius, var(--radius-sm));
+  background: var(--surface-control-background, var(--surface-sunken));
+  border: var(--surface-control-border, 1px solid var(--line));
+}
+.ca-bgroup-opt {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 32px;
+  padding: 0 var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-muted);
+  font: 500 13px / 18px var(--font-sans);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease,
+    filter 150ms ease;
+}
+.ca-bgroup-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ca-bgroup-on {
+  background: color-mix(in srgb, var(--ca-accent, var(--lamp)) 20%, transparent);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ca-accent, var(--lamp)) 50%, transparent);
+}
+.ca-bgroup-pending {
+  box-shadow: inset 0 0 0 1px var(--sky);
+  cursor: progress;
+}
+.ca-bgroup-armed {
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ember);
+}
+/* Only where there is a pointer that hovers: on a phone, a hover left behind by a tap would
+   read as a segment that is on. */
+@media (hover: hover) {
+  .ca-bgroup-opt:hover:not(:disabled, .ca-bgroup-on, .ca-bgroup-armed) {
+    background: color-mix(in srgb, var(--ink) 6%, transparent);
+    color: var(--ink);
+  }
+  .ca-bgroup-on:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--ca-accent, var(--lamp)) 28%, transparent);
+  }
+}
+.ca-bgroup-opt:disabled {
+  cursor: not-allowed;
+}
+.ca-bgroup-opt:disabled:not(.ca-bgroup-pending) {
+  opacity: 0.45;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ca-bgroup-opt {
+    transition: none;
+  }
+}

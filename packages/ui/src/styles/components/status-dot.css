@@ -1,0 +1,118 @@
+/* StatusDot */
+.ca-status {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  border-radius: 50%;
+  outline: none;
+  cursor: default;
+  --dot: 8px;
+}
+.ca-status-sm {
+  --dot: 6px;
+  width: 12px;
+  height: 12px;
+}
+.ca-status-lg {
+  --dot: 10px;
+  width: 20px;
+  height: 20px;
+}
+.ca-status-dot {
+  position: relative;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  background: var(--status);
+}
+.ca-status-online {
+  --status: var(--sage);
+}
+.ca-status-error {
+  --status: var(--danger);
+}
+.ca-status-unavailable {
+  --status: var(--ink-muted);
+}
+.ca-status-disabled {
+  --status: var(--line-strong);
+}
+.ca-status-online .ca-status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--status);
+  animation: ca-pulse 2s ease-out infinite;
+}
+@keyframes ca-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ca-status-online .ca-status-dot::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+.ca-status-tip {
+  position: absolute;
+  left: 50%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: max-content;
+  max-width: 240px;
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface-raised-background, var(--surface-raised));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--surface-raised-shadow, var(--shadow-lift));
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%);
+  transition:
+    opacity 120ms ease,
+    visibility 120ms;
+}
+.ca-status-tip strong {
+  font: 600 13px / 18px var(--font-sans);
+  color: var(--ink);
+}
+.ca-status-tip-top .ca-status-tip {
+  bottom: calc(100% + 6px);
+}
+.ca-status-align-start .ca-status-tip {
+  left: -4px;
+  transform: none;
+}
+.ca-status-align-end .ca-status-tip {
+  left: auto;
+  right: -4px;
+  transform: none;
+}
+.ca-status-tip-bottom .ca-status-tip {
+  top: calc(100% + 6px);
+}
+.ca-status:hover .ca-status-tip,
+.ca-status:focus-visible .ca-status-tip {
+  opacity: 1;
+  visibility: visible;
+}

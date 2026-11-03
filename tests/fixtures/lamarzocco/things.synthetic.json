@@ -1,0 +1,18 @@
+[
+  {
+    "serialNumber": "MR012345",
+    "type": "CoffeeMachine",
+    "name": "Linea Mini R",
+    "modelCode": "LINEAMINIR",
+    "modelName": "LINEA MINI 2023",
+    "connected": true
+  },
+  {
+    "serialNumber": "PG000111",
+    "type": "Grinder",
+    "name": "Pico",
+    "modelCode": "PICOGRINDER",
+    "modelName": "PICO",
+    "connected": true
+  }
+]

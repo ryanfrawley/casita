@@ -1,0 +1,71 @@
+/* Stepper */
+.ca-stepper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 3px;
+  border: var(--surface-control-border, 1px solid var(--line));
+  border-radius: var(--radius-arch);
+  background: var(--surface-raised);
+}
+.ca-stepper-btn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-sunken);
+  color: var(--ink);
+  cursor: pointer;
+}
+.ca-stepper-btn:hover:not(:disabled) {
+  background: var(--line);
+}
+.ca-stepper-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.ca-stepper-value {
+  flex: none;
+  box-sizing: content-box;
+  text-align: center;
+  font: 500 17px / 22px var(--font-sans);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ca-stepper-sm .ca-stepper-btn {
+  width: 32px;
+  height: 32px;
+}
+.ca-stepper-sm .ca-stepper-value {
+  font-size: 15px;
+  line-height: 20px;
+}
+.ca-stepper-pending {
+  border-color: var(--sky);
+  box-shadow: inset 0 0 0 1px var(--sky);
+}
+.ca-stepper-pending .ca-stepper-value {
+  color: var(--sky);
+}
+.ca-stepper-spin {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface-raised);
+  box-shadow: 0 0 0 1px var(--sky);
+  color: var(--sky);
+}
+.ca-stepper-off .ca-stepper-value {
+  color: var(--ink-muted);
+}

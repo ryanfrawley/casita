@@ -1,0 +1,147 @@
+/* EntityCard: a card that is one row. Ahead of the design system; raise it there. */
+.ca-ecard {
+  --ca-accent: var(--lamp);
+  --ca-on-accent: var(--accents-onLamp, var(--ink-on-lamp));
+  /* Given more height than its row (a grid row stands as tall as its tallest), the row sits
+     in the middle rather than leaving a blank band under it. */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--surface-card-background, var(--surface-sunken));
+  border: var(--surface-card-border, none);
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  overflow: hidden;
+  color: var(--ink);
+}
+.ca-ecard-sky {
+  --ca-accent: var(--sky);
+  --ca-on-accent: var(--accents-onSky, var(--on-sky));
+}
+.ca-ecard-sage {
+  --ca-accent: var(--sage);
+  --ca-on-accent: var(--accents-onSage, var(--plaster));
+}
+.ca-ecard-ember {
+  --ca-accent: var(--ember);
+  --ca-on-accent: var(--accents-onEmber, var(--ink-on-lamp));
+}
+.ca-ecard-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  /* One grid unit: the icon's 40px circle and 8px about it. */
+  min-height: var(--grid-unit);
+}
+/* The icon's box follows the theme's `card.icon` group, with the design's arch as the fallback. */
+.ca-ecard-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: calc(var(--card-icon-size, 22px) + 2 * var(--card-icon-padding, 9px));
+  height: calc(var(--card-icon-size, 22px) + 2 * var(--card-icon-padding, 9px));
+  border-radius: var(--card-icon-shape, var(--radius-arch));
+  border: var(--card-icon-box, var(--card-icon-border, none));
+  background: var(--card-icon-box, var(--card-icon-background, var(--surface-raised)));
+  color: var(--ink-muted);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+.ca-ecard-icon > svg {
+  width: var(--card-icon-size, 22px);
+  height: var(--card-icon-size, 22px);
+}
+.ca-ecard-active .ca-ecard-icon {
+  background: color-mix(in srgb, var(--ca-accent) 18%, transparent);
+  color: color-mix(in oklch, var(--ca-accent) 85%, var(--ink));
+}
+.ca-ecard-unavailable .ca-ecard-icon {
+  background: var(--surface-raised)
+    repeating-linear-gradient(135deg, transparent 0 4px, var(--unavailable) 4px 5px);
+  box-shadow: inset 0 0 0 1px var(--unavailable);
+}
+/* The head's face as a button to its details: the icon and the titles, as they lie. */
+.ca-ecard-open {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: calc(-1 * var(--space-2)) 0;
+  padding: var(--space-2) 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.ca-ecard-open:hover .ca-ecard-name {
+  color: var(--terracotta-ink);
+}
+.ca-ecard-open:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.ca-ecard-titles {
+  flex: 1;
+  min-width: 0;
+}
+.ca-ecard-nameline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.ca-ecard-name {
+  margin: 0;
+  font:
+    var(--card-title-weight, 500) var(--card-title-size, 16px) / 22px
+    var(--card-title-font, var(--font-sans));
+  color: var(--card-title-color, var(--ink));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ca-ecard-summary {
+  font:
+    var(--card-subtitle-weight, 400) var(--card-subtitle-size, 13px) / 18px
+    var(--card-subtitle-font, var(--font-sans));
+  color: var(--card-subtitle-color, var(--ink-muted));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* The control and menu keep their width; the name gives way. */
+.ca-ecard-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+/* A row with something under it (a light's dimmer) is a head with a body, as a card's is:
+   half a step taller, 12px above and below its words, the line at its edge, and 8px to what
+   hangs under it. */
+.ca-ecard-head:has(+ .ca-ecard-body) {
+  min-height: calc(var(--grid-unit) + var(--grid-step) / 2);
+  padding-top: calc(var(--space-2) + var(--grid-step) / 4);
+  padding-bottom: calc(var(--space-2) + var(--grid-step) / 4);
+}
+.ca-ecard-body {
+  position: relative;
+  margin-top: calc(var(--grid-step) / 2);
+}
+.ca-ecard-body::before {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--grid-step) / 2);
+  left: var(--divider-inset, 0px);
+  right: var(--divider-inset, 0px);
+  height: var(--divider-height, 1px);
+  background: var(--divider-color, var(--line));
+  pointer-events: none;
+}

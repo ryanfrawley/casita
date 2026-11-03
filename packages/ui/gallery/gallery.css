@@ -1,0 +1,218 @@
+/* The gallery's own layout. Component styles never live here. */
+.g-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-8);
+}
+.g-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+.g-top img {
+  height: 28px;
+}
+.g-name {
+  font: 600 22px / 28px var(--font-display);
+  margin-right: auto;
+}
+.g-section {
+  margin-bottom: var(--space-8);
+}
+.g-section > h2 {
+  margin: 0 0 var(--space-4);
+}
+.g-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+.g-card {
+  background: var(--surface-raised);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-tile);
+  padding: var(--space-4);
+}
+.g-swatch {
+  height: 56px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  margin-bottom: var(--space-2);
+}
+.g-note {
+  color: var(--ink-muted);
+  margin: var(--space-1) 0 0;
+}
+.g-type {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-2) var(--space-4);
+  align-items: baseline;
+}
+.g-bar {
+  height: 12px;
+  background: var(--terracotta);
+  border-radius: 2px;
+}
+.g-shape {
+  width: 96px;
+  height: 64px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--line-strong);
+  margin-bottom: var(--space-2);
+}
+.g-icons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-3);
+}
+.g-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink);
+}
+.g-icon span {
+  color: var(--ink-muted);
+}
+.g-logos {
+  display: flex;
+  gap: var(--space-6);
+  align-items: flex-end;
+}
+.g-logos img {
+  height: 64px;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.g-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.g-demo-note {
+  margin: 0 0 var(--space-2);
+}
+.g-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 260px;
+  flex: 1;
+}
+.g-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.g-stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--plaster);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.g-wide {
+  width: 100%;
+}
+.g-tabs-pad {
+  padding-top: var(--space-6);
+}
+.g-col > .ca-stepper,
+.g-col > .ca-seg,
+.g-col > .ca-copy {
+  align-self: flex-start;
+}
+.g-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-3);
+  width: 100%;
+}
+.g-areas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+/* Weather effects: a page-wide sky, a stand-in for the app's greeting head, and a tile per condition. */
+.g-wx-page {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.g-wx-page > .ca-wx {
+  z-index: auto;
+}
+.g-wx-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  box-sizing: border-box;
+  min-height: 128px;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-md);
+}
+.g-wx-head h1 {
+  margin: 0;
+}
+.g-wx-head:not(.ca-wx-of-hail) > .ca-wx {
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+.g-wx-greeting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-right: auto;
+}
+.g-wx-outside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.g-wx-outside-now {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.g-wx-outside-now > svg {
+  color: var(--ink-muted);
+}
+.g-wx-outside-now > div {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.g-wx-outside-temp {
+  font: 500 32px / 36px var(--font-display);
+}
+.g-wx-outside-now small,
+.g-wx-outside-line {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.g-wx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+  width: 100%;
+}
+.g-wx-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 128px;
+  border-radius: var(--radius-md);
+  background: var(--surface-card-background, var(--surface-sunken));
+  color: var(--ink-muted);
+  font: 500 13px / 18px var(--font-sans);
+}

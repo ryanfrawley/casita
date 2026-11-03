@@ -1,0 +1,426 @@
+/* WidgetCard */
+.ca-widget {
+  --ca-accent: var(--lamp);
+  --ca-on-accent: var(--accents-onLamp, var(--ink-on-lamp));
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-card-background, var(--surface-sunken));
+  border: var(--surface-card-border, none);
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  box-shadow: var(--surface-card-shadow, none);
+  overflow: hidden;
+  color: var(--ink);
+}
+.ca-widget-sky {
+  --ca-accent: var(--sky);
+  --ca-on-accent: var(--accents-onSky, var(--on-sky));
+}
+.ca-widget-sage {
+  --ca-accent: var(--sage);
+  --ca-on-accent: var(--accents-onSage, var(--plaster));
+}
+.ca-widget-ember {
+  --ca-accent: var(--ember);
+  --ca-on-accent: var(--accents-onEmber, var(--ink-on-lamp));
+}
+/* The head is one grid unit, as an EntityCard's is: the 40px icon and 8px about it. */
+.ca-widget-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+}
+/* The heading as a button to what the card is of, drawn as the heading is. The head's right
+   padding is a step less than its left, for the actions that usually sit there; the button's
+   margins even that out, so it sits the same distance from both edges. */
+.ca-widget-open {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: calc(-1 * var(--space-2));
+  margin-right: calc(var(--space-2) - var(--space-3));
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.ca-widget-open > * {
+  flex: 1;
+  min-width: 0;
+}
+/* On hover the title lights, as an entity row's name does: a page's Text takes its colour
+   through `--casa-text-lit` first. A heading with no title to light is tinted instead. */
+.ca-widget-open:hover {
+  background: color-mix(in srgb, var(--lamp-soft) 60%, transparent);
+}
+.ca-widget-open:has([class*="ca-text-"]:first-child:not(:empty)):hover {
+  background: none;
+}
+.ca-widget-open:hover [class*="ca-text-"]:first-child:not(:empty) {
+  --casa-text-lit: var(--terracotta-ink);
+}
+.ca-widget-open:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+/* The icon's box follows the theme's `card.icon` group, with the design's arch as the fallback. */
+.ca-widget-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  box-sizing: border-box;
+  width: calc(var(--card-icon-size, 22px) + 2 * var(--card-icon-padding, 9px));
+  height: calc(var(--card-icon-size, 22px) + 2 * var(--card-icon-padding, 9px));
+  border-radius: var(--card-icon-shape, var(--radius-arch));
+  border: var(--card-icon-box, var(--card-icon-border, none));
+  background: var(--card-icon-box, var(--card-icon-background, var(--surface-raised)));
+  color: var(--ink-muted);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+.ca-widget-icon > svg {
+  width: var(--card-icon-size, 22px);
+  height: var(--card-icon-size, 22px);
+}
+.ca-widget-active .ca-widget-icon {
+  background: color-mix(in srgb, var(--ca-accent) 18%, transparent);
+  color: color-mix(in oklch, var(--ca-accent) 85%, var(--ink));
+}
+.ca-widget-titles {
+  flex: 1;
+  min-width: 0;
+}
+.ca-widget-name {
+  font:
+    var(--card-title-weight, 500) var(--card-title-size, 16px) / 22px
+    var(--card-title-font, var(--font-sans));
+  color: var(--card-title-color, inherit);
+}
+.ca-widget-status {
+  font:
+    var(--card-subtitle-weight, 400) var(--card-subtitle-size, 13px) / 18px
+    var(--card-subtitle-font, var(--font-sans));
+  color: var(--card-subtitle-color, var(--ink-muted));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* The body's blocks are each a whole number of grid units, their content in the middle, with
+   a gutter between them and one under the head; the body itself adds only the side padding. */
+.ca-widget-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-4);
+}
+.ca-widget-strip + .ca-widget-body {
+  padding-top: var(--grid-step);
+}
+/* A head with a body under it is half a step taller, 12px above and below its title, and a
+   line the card's whole width at its edge sets the body apart from the title, 8px under the
+   line; the head and that 8px are still one pitch, so the body's blocks keep to the grid. A
+   card that is its head alone keeps the 56px head and has no line. */
+.ca-widget-head:has(+ .ca-widget-body) {
+  min-height: calc(var(--grid-unit) + var(--grid-step) / 2);
+  padding-top: calc(var(--space-2) + var(--grid-step) / 4);
+  padding-bottom: calc(var(--space-2) + var(--grid-step) / 4);
+}
+.ca-widget-head + .ca-widget-body {
+  position: relative;
+  padding-top: calc(var(--grid-step) / 2);
+}
+.ca-widget-head + .ca-widget-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--divider-height, 1px);
+  background: var(--divider-color, var(--line));
+  pointer-events: none;
+}
+.ca-widget-head + .ca-widget-empty {
+  margin-top: var(--grid-step);
+}
+/*
+ * Dividers. A line between any two blocks of the body, never after the last, drawn as the
+ * theme's `divider` group says: `--divider-color`, `--divider-height`, `--divider-inset` (in
+ * from each side) and `--divider-space` (above and below: the two together are the gutter
+ * between blocks, a grid step by default). The line is a pseudo-element in the gutter, so it
+ * can be inset where a border cannot and takes no height. `:where()` keeps the specificity
+ * at one class, so a block's own rule below can opt out.
+ */
+.ca-widget-body > * {
+  position: relative;
+}
+.ca-widget-body > :where(* + *) {
+  margin-top: calc(2 * var(--divider-space, 8px));
+}
+.ca-widget-body > :where(* + *)::before {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--divider-space, 8px));
+  left: var(--divider-inset, 0px);
+  right: var(--divider-inset, 0px);
+  height: var(--divider-height, 1px);
+  background: var(--divider-color, var(--line));
+  pointer-events: none;
+}
+/* A card may do without the lines; the blocks keep their room. */
+.ca-widget.ca-widget-undivided > .ca-widget-body > *::before,
+.ca-widget.ca-widget-undivided > .ca-widget-body > *::after {
+  content: none;
+}
+/* A row has its own height and side padding; in the body it lines up with the other blocks
+   and the body's divider replaces the one it brings. */
+.ca-widget-body > .ca-row {
+  padding: var(--space-2) 0;
+  border-bottom: 0;
+}
+/* Readings as values stand side by side as one strip: no line between them, and the strip
+   takes its room above only when a block, not the header, is over it. A value is only part
+   of the width, so the line over a strip is drawn under the block above it instead. */
+.ca-widget-body > .ca-widget-stats::before {
+  content: none;
+}
+.ca-widget-body > .ca-widget-stats {
+  margin-top: 0;
+}
+.ca-widget-body > :where(:not(.ca-widget-stats)) ~ .ca-widget-stats {
+  margin-top: calc(2 * var(--divider-space, 8px));
+}
+.ca-widget-body > :where(:not(.ca-widget-stats)):has(+ .ca-widget-stats)::after {
+  content: "";
+  position: absolute;
+  bottom: calc(-1 * var(--divider-space, 8px));
+  left: var(--divider-inset, 0px);
+  right: var(--divider-inset, 0px);
+  height: var(--divider-height, 1px);
+  background: var(--divider-color, var(--line));
+  pointer-events: none;
+}
+/* No header: the body starts at the top, and any actions sit in a strip of their own. */
+.ca-widget-strip {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: 0 var(--space-3);
+}
+/* Fills whatever height the card was given, so the words sit in the middle of it. */
+.ca-widget-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  margin: 0;
+  padding: 0 var(--space-4);
+  font: 400 14px / 20px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-widget-bare > .ca-widget-empty {
+  justify-content: center;
+  text-align: center;
+}
+/* Each block is a unit, or more, with its content in the middle. */
+.ca-widget-headline {
+  display: flex;
+  align-items: baseline;
+  align-content: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  box-sizing: border-box;
+  min-height: calc(2 * var(--grid-pitch) - var(--grid-step));
+}
+.ca-widget-big {
+  font: 500 40px / 44px var(--font-display);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.ca-widget-size-sm .ca-widget-big {
+  font-size: 32px;
+  line-height: 36px;
+}
+.ca-widget-unit {
+  font: 500 15px / 20px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-widget-caption {
+  flex-basis: 100%;
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-widget-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  align-content: center;
+  gap: var(--space-3) var(--space-4);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  margin: 0;
+}
+.ca-widget-stat dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-widget-stat dd {
+  margin: 2px 0 0;
+  font: 500 15px / 20px var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+.ca-widget-figure,
+.ca-widget-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  /* A figure's own margins go; the gutter above it is the body's to give. */
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  min-width: 0;
+}
+.ca-widget-body > :first-child {
+  margin-top: 0;
+}
+.ca-widget-figure-head {
+  margin-bottom: 6px;
+  font: 500 13px / 18px var(--font-sans);
+}
+.ca-widget-bar-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: 6px;
+  font: 500 13px / 18px var(--font-sans);
+}
+.ca-widget-bar-val {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ca-widget-low .ca-widget-bar-val {
+  color: var(--danger);
+}
+.ca-widget-muted {
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+.ca-widget .ca-rangebar {
+  height: 8px;
+}
+/* A map is three units: 168px of map and a 32px caption, its edge drawn inside the box. */
+.ca-widget-map {
+  margin: 0;
+  overflow: hidden;
+  outline: 1px solid var(--line);
+  outline-offset: -1px;
+  border-radius: var(--radius-sm);
+}
+.ca-widget-map > svg,
+.ca-widget-map > img {
+  display: block;
+  width: 100%;
+  height: 168px;
+  object-fit: cover;
+}
+.ca-widget-map-ground {
+  fill: var(--surface-sunken);
+}
+.ca-widget-map-park {
+  fill: color-mix(in srgb, var(--sage) 22%, var(--surface-sunken));
+}
+.ca-widget-road {
+  stroke: var(--surface-raised);
+  stroke-width: 6;
+}
+.ca-widget-map-halo {
+  fill: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.ca-widget-map-pin {
+  fill: var(--ink);
+}
+.ca-widget-map-dot {
+  fill: var(--surface-raised);
+}
+.ca-widget-map figcaption {
+  box-sizing: border-box;
+  height: 32px;
+  padding: 7px var(--space-3);
+  box-shadow: inset 0 1px var(--line);
+  background: var(--surface-raised);
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-widget-map figcaption strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.ca-widget-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+}
+.ca-widget-control-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--card-icon-background, var(--surface-raised));
+  color: var(--ink-muted);
+}
+.ca-widget-control-on .ca-widget-control-icon {
+  background: color-mix(in srgb, var(--ca-accent) 18%, transparent);
+  color: color-mix(in oklch, var(--ca-accent) 85%, var(--ink));
+}
+.ca-widget-control-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  font: 500 14px / 20px var(--font-sans);
+}
+.ca-widget-control-text small {
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+/* What is on inside a card lights in the card's accent: a row's icon, a toggle, a dimmer's
+   fill, not always the lamp's. */
+.ca-widget .ca-toggle,
+.ca-ecard .ca-toggle {
+  --toggle-accent: var(--ca-accent);
+}
+.ca-widget .ca-row-on .ca-row-icon {
+  background: color-mix(in srgb, var(--ca-accent) 18%, transparent);
+  color: color-mix(in oklch, var(--ca-accent) 85%, var(--ink));
+}
+.ca-widget .ca-slider-lamp,
+.ca-ecard .ca-slider-lamp {
+  --fill: var(--ca-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ca-widget-icon {
+    transition: none;
+  }
+}

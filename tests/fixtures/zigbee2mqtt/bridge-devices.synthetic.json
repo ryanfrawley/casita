@@ -1,0 +1,300 @@
+[
+  { "ieee_address": "0x00124b0000000000", "friendly_name": "Coordinator", "type": "Coordinator" },
+  {
+    "ieee_address": "0x0017880100000001",
+    "friendly_name": "Hall bulb",
+    "type": "Router",
+    "software_build_id": "1.50.2",
+    "definition": {
+      "model": "9290012573A",
+      "vendor": "Philips",
+      "exposes": [
+        {
+          "type": "light",
+          "features": [
+            {
+              "type": "binary",
+              "name": "state",
+              "property": "state",
+              "access": 7,
+              "value_on": "ON",
+              "value_off": "OFF"
+            },
+            {
+              "type": "numeric",
+              "name": "brightness",
+              "property": "brightness",
+              "access": 7,
+              "value_min": 0,
+              "value_max": 254
+            },
+            {
+              "type": "numeric",
+              "name": "color_temp",
+              "property": "color_temp",
+              "access": 7,
+              "value_min": 153,
+              "value_max": 500
+            },
+            { "type": "composite", "name": "color_xy", "property": "color", "access": 7 }
+          ]
+        },
+        {
+          "type": "numeric",
+          "name": "linkquality",
+          "property": "linkquality",
+          "access": 1,
+          "unit": "lqi"
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0x00158d0000000002",
+    "friendly_name": "Coffee plug",
+    "type": "Router",
+    "definition": {
+      "model": "ZNCZ04LM",
+      "vendor": "Aqara",
+      "exposes": [
+        {
+          "type": "switch",
+          "features": [
+            {
+              "type": "binary",
+              "name": "state",
+              "property": "state",
+              "access": 7,
+              "value_on": "ON",
+              "value_off": "OFF"
+            }
+          ]
+        },
+        { "type": "numeric", "name": "power", "property": "power", "access": 5, "unit": "W" },
+        { "type": "numeric", "name": "energy", "property": "energy", "access": 1, "unit": "kWh" },
+        {
+          "type": "binary",
+          "name": "power_outage_memory",
+          "property": "power_outage_memory",
+          "access": 7,
+          "value_on": true,
+          "value_off": false
+        },
+        {
+          "type": "numeric",
+          "name": "linkquality",
+          "property": "linkquality",
+          "access": 1,
+          "unit": "lqi"
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0x00158d0000000003",
+    "friendly_name": "Hall motion",
+    "type": "EndDevice",
+    "definition": {
+      "model": "RTCGQ11LM",
+      "vendor": "Aqara",
+      "exposes": [
+        {
+          "type": "binary",
+          "name": "occupancy",
+          "property": "occupancy",
+          "access": 1,
+          "value_on": true,
+          "value_off": false
+        },
+        {
+          "type": "numeric",
+          "name": "illuminance",
+          "property": "illuminance",
+          "access": 1,
+          "unit": "lx"
+        },
+        { "type": "numeric", "name": "battery", "property": "battery", "access": 1, "unit": "%" },
+        {
+          "type": "enum",
+          "name": "motion_sensitivity",
+          "property": "motion_sensitivity",
+          "access": 7,
+          "values": ["low", "high"]
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0x00158d0000000004",
+    "friendly_name": "Back door",
+    "type": "EndDevice",
+    "definition": {
+      "model": "MCCGQ11LM",
+      "vendor": "Aqara",
+      "exposes": [
+        {
+          "type": "binary",
+          "name": "contact",
+          "property": "contact",
+          "access": 1,
+          "value_on": false,
+          "value_off": true
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0x0c4314fffe000005",
+    "friendly_name": "Bedroom radiator",
+    "type": "EndDevice",
+    "definition": {
+      "model": "TRVZB",
+      "vendor": "SONOFF",
+      "exposes": [
+        {
+          "type": "climate",
+          "features": [
+            {
+              "type": "numeric",
+              "name": "occupied_heating_setpoint",
+              "property": "occupied_heating_setpoint",
+              "access": 7,
+              "value_min": 4,
+              "value_max": 35,
+              "value_step": 0.5
+            },
+            {
+              "type": "numeric",
+              "name": "local_temperature",
+              "property": "local_temperature",
+              "access": 5
+            },
+            {
+              "type": "enum",
+              "name": "system_mode",
+              "property": "system_mode",
+              "access": 7,
+              "values": ["off", "auto", "heat"]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0x804b50fffe000006",
+    "friendly_name": "Office blind",
+    "type": "EndDevice",
+    "definition": {
+      "model": "E1757",
+      "vendor": "IKEA",
+      "exposes": [
+        {
+          "type": "cover",
+          "features": [
+            {
+              "type": "enum",
+              "name": "state",
+              "property": "state",
+              "access": 3,
+              "values": ["OPEN", "CLOSE", "STOP"]
+            },
+            {
+              "type": "numeric",
+              "name": "position",
+              "property": "position",
+              "access": 7,
+              "value_min": 0,
+              "value_max": 100
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0x000d6f0000000007",
+    "friendly_name": "Front door lock",
+    "type": "EndDevice",
+    "definition": {
+      "model": "YRD426NRSC",
+      "vendor": "Yale",
+      "exposes": [
+        {
+          "type": "lock",
+          "features": [
+            {
+              "type": "binary",
+              "name": "state",
+              "property": "state",
+              "access": 7,
+              "value_on": "LOCK",
+              "value_off": "UNLOCK"
+            },
+            {
+              "type": "enum",
+              "name": "lock_state",
+              "property": "lock_state",
+              "access": 1,
+              "values": ["not_fully_locked", "locked", "unlocked"]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0xa4c1380000000008",
+    "friendly_name": "Kitchen switch",
+    "type": "Router",
+    "definition": {
+      "model": "TS0012",
+      "vendor": "TuYa",
+      "exposes": [
+        {
+          "type": "switch",
+          "endpoint": "left",
+          "features": [
+            {
+              "type": "binary",
+              "name": "state",
+              "property": "state_left",
+              "access": 7,
+              "value_on": "ON",
+              "value_off": "OFF",
+              "endpoint": "left"
+            }
+          ]
+        },
+        {
+          "type": "switch",
+          "endpoint": "right",
+          "features": [
+            {
+              "type": "binary",
+              "name": "state",
+              "property": "state_right",
+              "access": 7,
+              "value_on": "ON",
+              "value_off": "OFF",
+              "endpoint": "right"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "ieee_address": "0x00158d0000000009",
+    "friendly_name": "Unsupported gadget",
+    "type": "EndDevice",
+    "definition": null
+  },
+  {
+    "ieee_address": "0x00158d000000000a",
+    "friendly_name": "Disabled plug",
+    "type": "Router",
+    "disabled": true,
+    "definition": { "model": "x", "vendor": "x", "exposes": [] }
+  }
+]

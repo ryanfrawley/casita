@@ -1,0 +1,1972 @@
+/* The app's own layout. Component styles live in @casita/ui; every value here is a token. */
+.app-shell {
+  --app-nav-width: 240px;
+  display: grid;
+  grid-template-columns: var(--app-nav-width) minmax(0, 1fr);
+  min-height: 100vh;
+}
+.app-nav {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
+}
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: 600 22px / 28px var(--font-display);
+  color: var(--ink);
+}
+.app-brand-mark {
+  height: 28px;
+  flex: none;
+}
+/* October: moonlight falls on the page from the top right. */
+.app-shell-october .app-main {
+  background-image: radial-gradient(
+    900px 420px at 85% -10%,
+    rgba(163, 180, 242, 0.09),
+    transparent 70%
+  );
+}
+.app-nav-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.app-me {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+/* The greeting's weather runs the main column's whole width; `clip` keeps a sliver of it,
+   under a scrollbar, from widening the page, without making the column scroll (which
+   `hidden` would, and the banner would stop sticking). */
+.app-main {
+  min-width: 0;
+  overflow-x: clip;
+}
+.app-page {
+  --app-page-top: var(--space-8);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--app-page-top) var(--space-8) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.app-search {
+  flex: 1 1 240px;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 36px;
+  padding: 0 10px;
+  border-radius: var(--surface-control-radius, var(--radius-sm));
+  border: var(--surface-control-border, 1px solid var(--line-strong));
+  background: var(--surface-raised);
+  color: var(--ink-muted);
+}
+.app-search:focus-within {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.app-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 400 14px / 20px var(--font-sans);
+}
+.app-search input::placeholder {
+  color: var(--ink-muted);
+}
+.app-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.app-page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+/* A second list on a page, under the first with room between: the sensors under the automations. */
+.app-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+.app-page-head h1 {
+  margin: 0;
+}
+.app-page-head .ca-field {
+  width: 240px;
+}
+.app-banner {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-3) var(--space-8) 0;
+}
+/* The greeting is two grid units tall, the words in the middle of them. The weather outside
+   falls behind them, fading out before the head's lower edge so nothing is cut off. */
+.app-casa-greeting {
+  align-items: center;
+  box-sizing: border-box;
+  min-height: calc(2 * var(--grid-pitch) - var(--grid-step));
+}
+/* The greeting's weather bleeds: across the main column (the page is centred in it, so the
+   head's middle is the column's) and up to the banner, through the page's top padding. The
+   head stops clipping so the canvases can reach; they still end at its lower edge. */
+.app-casa-greeting.ca-wx-host {
+  overflow: visible;
+}
+.app-casa-greeting > .ca-wx {
+  top: calc(-1 * var(--app-page-top));
+  left: 50%;
+  right: auto;
+  width: calc(100vw - var(--app-nav-width, 0px));
+  height: calc(100% + var(--app-page-top));
+  transform: translateX(-50%);
+}
+.app-casa-greeting:not(.ca-wx-of-hail) > .ca-wx {
+  mask-image: linear-gradient(to bottom, #000 60%, transparent);
+}
+.app-greeting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-right: auto;
+}
+.app-outside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.app-outside-now {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.app-outside-now > svg {
+  color: var(--ink-muted);
+}
+.app-outside-now > div {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.app-outside-temp {
+  font: 500 32px / 36px var(--font-display);
+}
+.app-outside-now small,
+.app-outside-line {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.app-weather {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 480px;
+}
+/*
+ * Rooms in three columns on a wide screen; a room takes as many as the household chose, in
+ * order, and every room in a row is as tall as the tallest (masonry is only inside a room).
+ * Two columns in the middle, one on a phone, with a room clamped to what there is rather than
+ * spilling into columns that don't exist.
+ */
+.app-areas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--grid-step);
+}
+.app-areas > .ca-area + .ca-area {
+  margin-top: 0;
+}
+.app-areas > .app-area-cols-1 {
+  grid-column: span 1;
+}
+.app-areas > .app-area-cols-2 {
+  grid-column: span 2;
+}
+.app-areas > .app-area-cols-3 {
+  grid-column: 1 / -1;
+}
+@media (max-width: 1100px) {
+  .app-areas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 860px) {
+  .app-areas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-areas > .app-area-cols-2 {
+    grid-column: 1 / -1;
+  }
+}
+/* A dimmer under its row is a unit of its own, the slider in the middle of it. */
+.app-dimmer {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: 0 var(--space-4) 0 calc(var(--space-4) + 36px + var(--space-3));
+}
+.app-dimmer > * {
+  flex: 1;
+}
+/* In a widget's body the row has no side padding, so its dimmer starts at the name too, and
+   it hangs under its row with no divider between them: it is the row's. */
+.ca-widget-body > .app-dimmer {
+  padding-left: calc(36px + var(--space-3));
+  padding-right: 0;
+}
+.ca-widget-body > .app-dimmer::before {
+  content: none;
+}
+/* What follows a map is spaced from it as any block is, with no line between them: the map's
+   edge already sets it off. */
+.ca-widget-body > .app-casa-map + *::before,
+.ca-widget-body > .app-casa-map::after {
+  content: none;
+}
+/* Under a card that is one row, the dimmer lines up with the name, not the arch. */
+.app-ecard-dimmer {
+  padding: 0 var(--space-4) 0 calc(var(--space-4) + 40px + var(--space-3));
+}
+.app-muted {
+  color: var(--ink-muted);
+  margin: 0;
+}
+.app-recent h2 {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  margin: 0;
+}
+.app-recent ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--space-4);
+  background: var(--surface-card-background, var(--surface-raised));
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  box-shadow: var(--surface-card-shadow, var(--shadow-tile));
+}
+.app-recent li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: 0;
+  font: 400 15px / 22px var(--font-sans);
+}
+.app-recent li {
+  position: relative;
+}
+.app-recent li + li {
+  margin-top: var(--grid-step);
+}
+.app-recent li + li::before {
+  content: "";
+  position: absolute;
+  top: calc(-0.5 * var(--grid-step));
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+.app-recent strong {
+  font-weight: 600;
+}
+.app-recent time {
+  flex: none;
+  font: 400 12px / 22px var(--font-sans);
+}
+.app-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.app-history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+/* The last chart, faded while the next range loads. */
+.app-history-stale {
+  opacity: 0.5;
+  transition: opacity 150ms ease;
+}
+.app-history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.app-history-head h3 {
+  margin: 0;
+}
+.app-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.app-form h3 {
+  margin: 0;
+}
+.app-form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+/* An entity's status in its sheet: a heading like its history's, its state at the end. */
+.app-status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.app-status h3,
+.app-status p {
+  margin: 0;
+}
+.app-status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 34px;
+}
+.app-status-state {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.app-status > .app-dimmer {
+  padding: 0;
+}
+.app-detail > .app-form {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+/* An area's entities in its sheet: a plain list, a line between rows. */
+.app-detail-list {
+  display: flex;
+  flex-direction: column;
+}
+.app-detail-list > * + * {
+  padding-top: var(--space-3);
+  margin-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+.app-cell-name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.app-history-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4);
+}
+.app-history-pick .ca-field {
+  width: 320px;
+}
+.app-history-chosen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.app-history-export h2 {
+  margin: 0;
+}
+.app-history-export p {
+  margin: var(--space-1) 0 var(--space-3);
+}
+.app-history-export a {
+  text-decoration: none;
+}
+.app-page-narrow {
+  max-width: 760px;
+}
+.app-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--surface-card-background, var(--surface-raised));
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  box-shadow: var(--surface-card-shadow, var(--shadow-tile));
+}
+.app-card h2,
+.app-card p {
+  margin: 0;
+}
+.app-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+}
+.app-facts dd {
+  margin: 0;
+}
+.app-link {
+  color: var(--terracotta-ink);
+}
+.app-form-row {
+  flex-direction: row;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.app-form-row .ca-field {
+  flex: 1;
+  min-width: 200px;
+}
+.app-action {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+.app-action h4 {
+  margin: 0;
+}
+.app-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.app-action-row + .ca-code {
+  margin-top: var(--space-3);
+}
+.app-scan-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.app-scan-field > .ca-field {
+  align-self: stretch;
+}
+.app-scan-field > .ca-btn {
+  margin-left: calc(-1 * var(--space-3));
+}
+.app-scan {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: #000;
+}
+/* The sheet is narrower than a page; a field reaches its Run button's edge. */
+.app-action .ca-field {
+  max-width: none;
+}
+.app-cell-stack {
+  display: flex;
+  flex-direction: column;
+}
+/* A quiet button in a left-aligned cell sits flush with the column's header. */
+.app-cell-flush {
+  margin-left: calc(-1 * var(--space-3));
+}
+.app-cell-error {
+  color: var(--danger);
+  font: 400 12px / 16px var(--font-sans);
+}
+.app-split {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+  padding-top: var(--space-4);
+}
+.app-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.app-panel h3 {
+  margin: 0;
+}
+.app-pick {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--surface-card-background, var(--surface-raised));
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  box-shadow: var(--surface-card-shadow, var(--shadow-tile));
+  overflow: hidden;
+}
+.app-pick li + li {
+  border-top: 1px solid var(--line);
+}
+.app-pick-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: 400 15px / 22px var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+}
+.app-pick-item > span:first-child {
+  display: flex;
+  flex-direction: column;
+}
+.app-pick-item strong {
+  font-weight: 600;
+}
+.app-pick-item[aria-current] {
+  background: var(--surface-sunken);
+  color: var(--terracotta-ink);
+}
+.app-pick-item:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: -2px;
+}
+.app-grants {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.app-grant {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+.app-grant + .app-grant {
+  border-top: 1px solid var(--line);
+}
+.app-grant-scope {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0;
+}
+.app-card > .ca-copy,
+.app-detail > .ca-copy {
+  align-self: flex-start;
+}
+.app-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  box-sizing: border-box;
+}
+.app-login-card {
+  width: 100%;
+  max-width: 360px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--surface-card-background, var(--surface-raised));
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  box-shadow: var(--surface-card-shadow, var(--shadow-tile));
+}
+.app-login-card h1 {
+  margin: 0;
+}
+.app-login-card .ca-btn {
+  justify-content: center;
+  text-decoration: none;
+}
+.app-login-error {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--danger);
+  font: 500 13px / 18px var(--font-sans);
+}
+
+/* A link for the keyboard, ahead of the navigation, that jumps to the page. */
+.app-skip {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 2000;
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface-raised);
+  color: var(--terracotta-ink);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lift);
+  font: 500 13px / 18px var(--font-sans);
+}
+.app-skip:focus {
+  top: var(--space-4);
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.app-main:focus {
+  outline: none;
+}
+
+/* A wall tablet in portrait, or a phone: the navigation becomes a bar across the top that
+   scrolls sideways, pages take the page gutter for small screens, and everything stacks. */
+@media (max-width: 860px) {
+  /* The instance id (second column) is in the sheet's subtitle; the name and controls fit. */
+  .app-integrations th:nth-child(2),
+  .app-integrations td:nth-child(2) {
+    display: none;
+  }
+  .app-shell {
+    --app-nav-width: 0px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .app-nav {
+    z-index: 20;
+    width: auto;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+  }
+  .app-nav .ca-nav-brand {
+    padding: 0;
+  }
+  .app-nav .app-brand span {
+    display: none;
+  }
+  .app-nav .ca-nav-list {
+    flex-direction: row;
+  }
+  .app-nav .ca-nav-item {
+    width: auto;
+    height: 44px;
+    white-space: nowrap;
+  }
+  .app-nav .ca-nav-foot {
+    margin: 0 0 0 auto;
+    padding: 0 0 0 var(--space-3);
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+  .app-nav-foot {
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .app-page {
+    --app-page-top: var(--space-4);
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+  .app-search {
+    height: 44px;
+    max-width: none;
+  }
+  .app-page-head .ca-field,
+  .app-history-pick .ca-field {
+    width: 100%;
+  }
+  .app-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-page .ca-text-display {
+    font-size: 32px;
+    line-height: 36px;
+  }
+  /* A table wider than the screen scrolls inside its own frame, not the page. */
+  .app-page .ca-table-wrap {
+    overflow-x: auto;
+  }
+  /* A slider in a row has no room beside the name: it goes underneath, as the design says. */
+  .app-dimmer {
+    padding-left: var(--space-4);
+  }
+}
+/* Fingers, not a mouse: every control is at least 44px tall. */
+@media (pointer: coarse) {
+  .app-shell .ca-btn,
+  .app-shell .ca-iconbtn,
+  .app-shell .ca-nav-item,
+  .app-shell .ca-pill,
+  .app-shell .ca-seg-opt,
+  .app-shell .ca-tab {
+    min-height: 44px;
+  }
+  .app-shell .ca-iconbtn {
+    min-width: 44px;
+  }
+}
+
+/* ───────── cards on Home ───────── */
+
+/* A card clips its corners, which would clip its "…" menu too: let the open one out. */
+.ca-device:has(.ca-menu-list),
+.ca-widget:has(.ca-menu-list),
+.ca-ecard:has(.ca-menu-list) {
+  overflow: visible;
+}
+/* A large card takes two columns of a room when the room is wide enough for two. */
+.ca-area-grid {
+  container-type: inline-size;
+}
+@container (min-width: 656px) {
+  .ca-area-grid > .ca-widget-size-lg {
+    grid-column: span 2;
+  }
+}
+.app-detail-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ───────── Customize card ───────── */
+
+.app-wg-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font: 500 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-crumbs a {
+  color: var(--terracotta-ink);
+  text-decoration: none;
+}
+.app-wg-crumbs a:hover {
+  text-decoration: underline;
+}
+.app-wg-lede {
+  margin: 4px 0 0;
+  max-width: 560px;
+  font: 400 15px / 22px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-lede strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.app-wg-actions {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.app-wg-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 540px;
+  gap: 24px;
+  align-items: start;
+}
+/* Preview */
+.app-wg-previewcol {
+  position: sticky;
+  top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.app-wg-previewbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.app-wg-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-height: 560px;
+  padding: 20px 20px 32px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background: var(--surface-sunken);
+  transition: background-color 150ms ease;
+}
+.app-wg-stage-label {
+  align-self: stretch;
+  font: 500 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-stage-card {
+  max-width: 100%;
+}
+.app-wg-foot {
+  margin: 0;
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+}
+/* Editor */
+.app-wg-editor {
+  background: var(--surface-card-background, var(--surface-raised));
+  border: var(--surface-card-border, 1px solid var(--line));
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  box-shadow: var(--surface-card-shadow, var(--shadow-tile));
+  padding: 4px 20px 20px;
+}
+.app-wg-editor .ca-tabpanel {
+  padding-top: 20px;
+}
+.app-wg-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.app-wg-tab .ca-field {
+  max-width: none;
+}
+.app-wg-sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.app-wg-sec-head h3 {
+  margin: 0;
+  font: 600 16px / 22px var(--font-sans);
+}
+.app-wg-sec-gap {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.app-wg-count {
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-hint {
+  margin: -8px 0 0;
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-field .app-wg-hint,
+.app-wg-inline .app-wg-hint,
+.app-wg-settings .app-wg-hint {
+  margin: 0;
+}
+.app-wg-empty {
+  margin: 0;
+  padding: 16px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  font: 400 14px / 20px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-list,
+.app-wg-avail {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.app-wg-row + .app-wg-row {
+  border-top: 1px solid var(--line);
+}
+.app-wg-row-main {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 4px;
+  min-height: 52px;
+  box-sizing: border-box;
+}
+.app-wg-row-sel > .app-wg-row-main {
+  background: var(--surface-sunken);
+}
+.app-wg-grip {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 44px;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: grab;
+}
+.app-wg-grip:hover {
+  color: var(--ink);
+}
+.app-wg-grip:focus-visible,
+.app-wg-row-pick:focus-visible,
+.app-wg-swatch:has(:focus-visible) {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.app-wg-row-pick {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.app-wg-row-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface-sunken);
+  color: var(--ink-muted);
+}
+.app-wg-row-sel .app-wg-row-icon {
+  background: var(--surface-raised);
+}
+.app-wg-row-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.app-wg-row-name {
+  display: flex;
+  gap: 8px;
+  font: 600 14px / 20px var(--font-sans);
+  white-space: nowrap;
+}
+.app-wg-row-value {
+  font-weight: 400;
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app-wg-row-src {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Where a reading on a card of the house's own comes from: "Desk lamp · Office". */
+.app-wg-row-from {
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.app-wg-error {
+  margin: 0;
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--danger);
+}
+.app-wg-row-display {
+  flex: none;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  font: 500 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 16px 20px 48px;
+  background: var(--surface-sunken);
+  border-top: 1px solid var(--line);
+}
+.app-wg-settings .ca-input,
+.app-wg-settings .ca-select {
+  background: var(--surface-raised);
+}
+.app-wg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.app-wg-field .ca-seg {
+  align-self: flex-start;
+  flex-wrap: wrap;
+}
+.app-wg-inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.app-wg-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.app-wg-swatch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 4px 12px 4px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-arch);
+  background: var(--surface-raised);
+  color: var(--ink);
+  font: 500 13px / 18px var(--font-sans);
+  cursor: pointer;
+  text-align: left;
+}
+.app-wg-swatch-on {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.app-wg-swatch-text {
+  display: flex;
+  flex-direction: column;
+}
+.app-wg-swatch-text small {
+  font: 400 11px / 14px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-chip {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex: none;
+}
+.app-wg-chip-lamp {
+  background: var(--lamp);
+  color: var(--ink-on-lamp);
+}
+.app-wg-chip-sky {
+  background: var(--sky);
+  color: var(--on-sky);
+}
+.app-wg-chip-sage {
+  background: var(--sage);
+  color: var(--plaster);
+}
+.app-wg-chip-ember {
+  background: var(--ember);
+  color: var(--ink-on-lamp);
+}
+.app-wg-chip-neutral {
+  background: var(--ink-muted);
+  color: var(--plaster);
+}
+.app-wg-chip-accent {
+  background: conic-gradient(
+    var(--lamp) 0 25%,
+    var(--sky) 0 50%,
+    var(--sage) 0 75%,
+    var(--ember) 0
+  );
+  color: var(--ink);
+}
+.app-wg-chip-accent .ca-icon {
+  background: var(--surface-raised);
+  border-radius: 50%;
+}
+.app-wg-note {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink);
+}
+.app-wg-note .ca-icon {
+  flex: none;
+  color: var(--sky);
+  margin-top: 1px;
+}
+.app-wg-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.app-wg-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border: var(--surface-control-border, 1px solid var(--line-strong));
+  border-radius: var(--surface-control-radius, var(--radius-sm));
+  background: var(--surface-raised);
+  color: var(--ink-muted);
+}
+.app-wg-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font: 400 15px / 22px var(--font-sans);
+  color: var(--ink);
+  outline: none;
+}
+.app-wg-search:focus-within {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.app-wg-avail-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 4px 12px;
+  box-sizing: border-box;
+}
+.app-wg-avail-row + .app-wg-avail-row {
+  border-top: 1px solid var(--line);
+}
+.app-wg-avail-empty {
+  padding: 16px;
+  font: 400 14px / 20px var(--font-sans);
+  color: var(--ink-muted);
+}
+.app-wg-kind {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+  font: 500 11px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+@media (max-width: 1100px) {
+  .app-wg-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-wg-previewcol {
+    position: static;
+  }
+  .app-wg-stage {
+    min-height: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-wg-stage {
+    transition: none;
+  }
+}
+
+/* ───────── Casa pages ───────── */
+/* A card's heading that opens nothing fills the head as `.ca-widget-open` does, so a header
+   component's `justify: .Between` can put its button at the far end. */
+.app-casa-heading {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+.app-casa-heading > * {
+  flex: 1;
+  min-width: 0;
+}
+/* A Stack or Grid with no `gap` puts a grid step between its children, the gutter between
+   any two blocks on the page; a Row stack, whose children are content-sized things beside
+   each other, `space.md`. */
+.app-casa-stack {
+  --casa-stack-gap: var(--grid-step);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.app-casa-stack-row {
+  --casa-stack-gap: var(--space-md);
+}
+.app-casa-stack > * {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+/* A row keeps to one line: its text gives way (wrapping within itself) while an icon or a
+   button keeps its size, as the design system's card head does. `wrap: true` lets it break. */
+.app-casa-stack-row {
+  flex-direction: row;
+}
+.app-casa-stack-row > * {
+  flex: 0 1 auto;
+}
+.app-casa-stack-row > :is(.app-casa-icon, .ca-btn) {
+  flex-shrink: 0;
+}
+.app-casa-stack-wrap {
+  flex-wrap: wrap;
+}
+.app-casa-grid {
+  --casa-grid-row-gap: var(--grid-step);
+  display: grid;
+  min-width: 0;
+}
+/* A cell's node fills it; one with an `align` sits at its own width where it asked to. */
+.app-casa-cell {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.app-casa-cell > * {
+  flex: 1;
+}
+.app-casa-cell-start {
+  align-items: flex-start;
+  text-align: start;
+}
+.app-casa-cell-center {
+  align-items: center;
+  text-align: center;
+}
+.app-casa-cell-end {
+  align-items: flex-end;
+  text-align: end;
+}
+/* With a `valign`, the node takes its own height and sits where it asked on the cell's. */
+.app-casa-cell-top,
+.app-casa-cell-middle,
+.app-casa-cell-bottom {
+  justify-content: flex-start;
+}
+.app-casa-cell-middle {
+  justify-content: center;
+}
+.app-casa-cell-bottom {
+  justify-content: flex-end;
+}
+.app-casa-cell-top > *,
+.app-casa-cell-middle > *,
+.app-casa-cell-bottom > * {
+  flex: 0 0 auto;
+}
+/* A reading as a value in a cell takes the cell's width, not the stat strip's 110px, and a
+   long number wraps at its unit rather than running into the next column. */
+.app-casa-cell > .ca-widget-stats {
+  grid-template-columns: minmax(0, 1fr);
+}
+.app-casa-cell .ca-widget-stat {
+  min-width: 0;
+}
+.app-casa-cell .ca-widget-stat dd {
+  overflow-wrap: anywhere;
+}
+/* A History in a card: a state bar is one grid unit exactly, a 16px label over a 20px bar
+   and its 20px axis; a chart is three units, its label and plot in the middle of them. */
+.ca-widget-figure:has(> .app-history-states) > .ca-widget-figure-head {
+  margin-bottom: 0;
+  line-height: 16px;
+}
+.ca-widget-figure:has(> .app-history-values) {
+  min-height: calc(3 * var(--grid-pitch) - var(--grid-step));
+}
+/* A Button, ButtonGroup or Segmented stands in a block of its own: in a card's body, a grid
+   unit, the control in the middle of it at its own height. */
+.app-casa-control {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+/* At the top of its unit, a gutter under the head, as the blocks before the grid stood. */
+.ca-widget-body > .app-casa-control {
+  align-items: flex-start;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+}
+.app-casa-control > .ca-bgroup {
+  flex: 1;
+}
+/* A ButtonGroup that ends a card runs to the card's edges: a strip of segments flush with the
+   sides and the bottom, parted by hairlines, with no track of its own. It starts at the line
+   over it, the head's or the one between it and the block before, and takes the 8px under
+   that line into itself, so the card's height is unchanged. */
+.ca-widget-body > .app-casa-control:last-child:has(> .ca-bgroup) {
+  align-items: stretch;
+  min-height: calc(var(--grid-unit) + var(--grid-step) / 2);
+  margin-top: calc(var(--grid-step) / 2);
+  margin-left: calc(-1 * var(--space-4));
+  margin-right: calc(-1 * var(--space-4));
+}
+.ca-widget-body > .app-casa-control:last-child:has(> .ca-bgroup)::before {
+  top: 0;
+}
+.ca-widget-head + .ca-widget-body:has(> .app-casa-control:first-child:last-child > .ca-bgroup) {
+  padding-top: 0;
+}
+.ca-widget-body > .app-casa-control:first-child:last-child:has(> .ca-bgroup) {
+  margin-top: 0;
+}
+.ca-widget-body > .app-casa-control:last-child > .ca-bgroup {
+  padding: 0;
+  gap: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.ca-widget-body > .app-casa-control:last-child > .ca-bgroup > .ca-bgroup-opt {
+  height: auto;
+  min-height: var(--grid-unit);
+  border-radius: 0;
+}
+.ca-widget-body > .app-casa-control:last-child > .ca-bgroup > .ca-bgroup-opt + .ca-bgroup-opt {
+  border-left: 1px solid var(--line);
+}
+/* In the strip a segment's state is a tint, never a ring: a ring would follow the segment's
+   square corner where the card has clipped it round. */
+.ca-widget-body > .app-casa-control:last-child > .ca-bgroup > .ca-bgroup-on {
+  box-shadow: none;
+}
+.ca-widget-body > .app-casa-control:last-child > .ca-bgroup > .ca-bgroup-armed {
+  box-shadow: none;
+  background: color-mix(in srgb, var(--ember) 22%, transparent);
+}
+.ca-widget-body > .app-casa-control:last-child > .ca-bgroup > .ca-bgroup-pending {
+  box-shadow: none;
+  background: color-mix(in srgb, var(--sky) 18%, transparent);
+}
+.app-casa-press {
+  cursor: pointer;
+}
+/* A pressable card is wrapped; the wrapper passes the cell's height on to the card. */
+.app-casa-cell > .app-casa-press {
+  display: flex;
+  flex-direction: column;
+}
+.app-casa-cell > .app-casa-press > * {
+  flex: 1;
+}
+.app-casa-grid > .app-casa-cell > .ca-area + .ca-area {
+  margin-top: 0;
+}
+/* A card's accent from the theme, when it is not one of the design system's four; the ink on
+   it is the text role's, as the heading's `onAccentOf` says. */
+[style*="--casa-accent"] .ca-widget,
+[style*="--casa-accent"] .ca-ecard,
+[style*="--casa-accent"] .ca-range-bar-accent {
+  --ca-accent: var(--casa-accent);
+  --ca-on-accent: var(--text-onAccent);
+}
+/* The body of a composed card: every block the full width; side by side is a Grid's to say.
+   What the card has over its content stays under the last block, so each block keeps to
+   its units. */
+.app-casa-card .ca-widget-body {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.app-casa-card .ca-widget-body > * {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+/* A SunPath alone in a card fills it: beside a taller card in a Grid, its plot grows to match.
+   The plot runs to the card's edges; the heading keeps the card's side padding, and the times
+   stay on the plot's width, so they still stand under sunrise and sunset. */
+.app-casa-card .ca-widget-body:has(> .ca-sun:only-child) {
+  align-content: stretch;
+  padding-left: 0;
+  padding-right: 0;
+}
+.app-casa-card .ca-widget-body > .ca-sun:only-child {
+  align-self: stretch;
+}
+.app-casa-card .ca-widget-body > .ca-sun:only-child > .ca-sun-head {
+  padding: 0 var(--space-4);
+}
+/* A pressable row in a card's body is wrapped, and reads as the row would unwrapped. */
+.ca-widget-body > .app-casa-press > .ca-row {
+  padding: var(--space-2) 0;
+  border-bottom: 0;
+}
+.ca-widget-body > .app-casa-press > .app-dimmer {
+  padding-left: calc(36px + var(--space-3));
+  padding-right: 0;
+}
+/* Rows side by side in a card's body, in a Grid of two or three columns: a line between the
+   grid's rows, in the gutter as the body's are, and one between its columns, in the middle of
+   the column gap, running the grid's height. Only cells that hold a row take them. */
+.ca-widget-body
+  .app-casa-grid[data-columns="2"]
+  > .app-casa-cell:nth-child(n + 3)
+  > .ca-row::before,
+.ca-widget-body
+  .app-casa-grid[data-columns="2"]
+  > .app-casa-cell:nth-child(n + 3)
+  > :where(.app-casa-press)
+  > .ca-row::before,
+.ca-widget-body
+  .app-casa-grid[data-columns="3"]
+  > .app-casa-cell:nth-child(n + 4)
+  > .ca-row::before,
+.ca-widget-body
+  .app-casa-grid[data-columns="3"]
+  > .app-casa-cell:nth-child(n + 4)
+  > :where(.app-casa-press)
+  > .ca-row::before {
+  content: "";
+  position: absolute;
+  top: calc(-0.5 * var(--casa-grid-gap));
+  left: var(--divider-inset, 0px);
+  right: var(--divider-inset, 0px);
+  height: var(--divider-height, 1px);
+  background: var(--divider-color, var(--line));
+  pointer-events: none;
+}
+.ca-widget-body .app-casa-grid[data-columns="2"] > .app-casa-cell,
+.ca-widget-body .app-casa-grid[data-columns="3"] > .app-casa-cell {
+  position: relative;
+}
+.ca-widget-body
+  .app-casa-grid[data-columns="2"]
+  > .app-casa-cell:not(:nth-child(2n + 1)):has(> .ca-row, > .app-casa-press > .ca-row)::before,
+.ca-widget-body
+  .app-casa-grid[data-columns="3"]
+  > .app-casa-cell:not(:nth-child(3n + 1)):has(> .ca-row, > .app-casa-press > .ca-row)::before {
+  content: "";
+  position: absolute;
+  top: calc(-0.5 * var(--casa-grid-gap));
+  bottom: calc(-0.5 * var(--casa-grid-gap));
+  left: calc(-0.5 * var(--casa-grid-col-gap));
+  width: var(--divider-height, 1px);
+  background: var(--divider-color, var(--line));
+  pointer-events: none;
+}
+/* A row in a Grid in a card's body lines up with the other blocks too, and the line it brings
+   goes: the Grid's gap is the rows' spacing. In one column the rows are a list, divided as the
+   body's blocks are, the line halfway up the gap and none after the last; side by side they
+   are cells, and the gap alone keeps them apart. */
+.ca-widget-body .app-casa-cell > .ca-row,
+.ca-widget-body .app-casa-cell > .app-casa-press > .ca-row {
+  padding: var(--space-2) 0;
+  border-bottom: 0;
+}
+.ca-widget-body
+  .app-casa-grid[data-columns="1"]
+  > .app-casa-cell
+  + .app-casa-cell
+  > .ca-row::before,
+.ca-widget-body
+  .app-casa-grid[data-columns="1"]
+  > .app-casa-cell
+  + .app-casa-cell
+  > :where(.app-casa-press)
+  > .ca-row::before {
+  content: "";
+  position: absolute;
+  top: calc(-0.5 * var(--casa-grid-gap));
+  left: var(--divider-inset, 0px);
+  right: var(--divider-inset, 0px);
+  height: var(--divider-height, 1px);
+  background: var(--divider-color, var(--line));
+  pointer-events: none;
+}
+.app-casa-section {
+  display: flex;
+  flex-direction: column;
+}
+.app-casa-section h2,
+.app-casa-section summary {
+  margin: 0;
+}
+/* A heading's words come from the section's own header component. */
+/* A section's title is a grid unit, the words in the middle. */
+.app-casa-section-title {
+  font: inherit;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+}
+/* An Icon's size may be a theme value, known only here; a shape puts it in the box the
+   theme's `room.icon` or `card.icon` group describes. */
+.app-casa-icon > svg {
+  width: var(--casa-icon-size, 22px);
+  height: var(--casa-icon-size, 22px);
+}
+.app-casa-icon-box {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  flex: none;
+}
+.app-casa-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-step);
+}
+/* Status is a line of words in the body: no side padding of its own, the body's room above and
+   below, the words set off the divider as a block's are. */
+.app-casa-status {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding-left: 0;
+  padding-right: 0;
+}
+.app-casa-error {
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--danger);
+  border-radius: var(--radius-sm);
+  color: var(--danger);
+  font: 400 13px / 18px var(--font-mono);
+}
+
+/* ───────── the Casa editor ───────── */
+.app-casa-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+.app-casa-editor-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-raised);
+}
+.app-casa-editor-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.app-casa-editor-title h1 {
+  margin: 0;
+}
+.app-casa-editor-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+.app-casa-editor-panes {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(0, 1.2fr);
+  flex: 1;
+  min-height: 0;
+}
+.app-casa-editor-source {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--line);
+}
+.app-casa-code {
+  flex: 1;
+  min-height: 240px;
+  overflow: hidden;
+}
+.app-casa-editor-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  max-height: 40%;
+  overflow: auto;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--line);
+  background: var(--surface-sunken);
+}
+.app-casa-problems,
+.app-casa-handlers,
+.app-casa-versions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.app-casa-problems button {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: 400 13px / 18px var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+}
+.app-casa-problem-at {
+  font: 400 12px / 18px var(--font-mono);
+  color: var(--ink-muted);
+}
+.app-casa-problems-none {
+  margin: 0;
+}
+.app-casa-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+}
+.app-casa-handlers code {
+  font: 400 12px / 18px var(--font-mono);
+}
+.app-casa-pretend-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.app-casa-pretend-head h3 {
+  margin: 0;
+}
+.app-casa-pretend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-2);
+}
+.app-casa-editor-preview {
+  min-height: 0;
+  overflow: auto;
+  width: 100%;
+  justify-self: start;
+  background: var(--plaster);
+}
+.app-casa-preview-head {
+  padding: var(--space-2) var(--space-4);
+  font: 400 12px / 16px var(--font-sans);
+  border-bottom: 1px dashed var(--line);
+}
+.app-casa-preview-page {
+  padding: var(--space-4);
+}
+.app-casa-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.app-casa-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font: 400 10px / 12px var(--font-mono);
+  color: var(--ink-muted);
+}
+.app-casa-swatch > span {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+}
+.app-casa-runs {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.app-casa-run {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+.app-casa-run-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.app-casa-run-trigger {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.app-casa-run-trigger code,
+.app-casa-run-calls code {
+  font: 400 12px / 18px var(--font-mono);
+}
+.app-casa-run-calls {
+  list-style: none;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.app-casa-run-calls li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.app-cell-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+@media (max-width: 860px) {
+  .app-casa-editor-panes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .app-casa-editor-source {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+.app-casa-theme-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.app-casa-settings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ───────── the header on every page ───────── */
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 14px var(--space-8);
+  border-bottom: 1px solid var(--line);
+}
+.app-header-search {
+  position: relative;
+  flex: 1 1 240px;
+  max-width: 360px;
+}
+.app-header-search > .app-search {
+  width: 100%;
+  max-width: none;
+}
+.app-kbd {
+  flex: none;
+  font: 400 12px / 16px var(--font-mono);
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--ink-muted);
+  background: var(--plaster);
+}
+.app-header-clock {
+  margin-left: auto;
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.app-search-found {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  width: max(100%, 420px);
+  max-width: calc(100vw - 2 * var(--space-4));
+  padding: var(--space-2) 0;
+  background: var(--surface-raised-background, var(--surface-raised));
+  border: 1px solid var(--line);
+  border-radius: var(--surface-raised-radius, var(--radius-md));
+  box-shadow: var(--surface-raised-shadow, var(--shadow-lift));
+}
+.app-search-found > p {
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+}
+.app-search-hit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3) 0 0;
+}
+.app-search-pick {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  grid-template-areas: "icon name state" "icon id state";
+  align-items: center;
+  column-gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  background: none;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.app-search-pick:hover,
+.app-search-pick:focus-visible {
+  background: var(--surface-sunken);
+  outline: none;
+}
+.app-search-pick > svg {
+  grid-area: icon;
+  color: var(--ink-muted);
+}
+.app-search-name {
+  grid-area: name;
+  font: 500 14px / 20px var(--font-sans);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.app-search-id {
+  grid-area: id;
+  font: 400 12px / 16px var(--font-mono);
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.app-search-state {
+  grid-area: state;
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+@media (max-width: 860px) {
+  .app-header {
+    padding: var(--space-3) var(--space-4);
+  }
+  .app-header-search {
+    max-width: none;
+  }
+  .app-kbd {
+    display: none;
+  }
+}
+/* A device's settings: a list in a card, a faint line between rows, the control at the end. */
+.app-settings {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.app-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: var(--grid-unit);
+  padding: var(--space-2) 0;
+  box-shadow: inset 0 1px 0 var(--line);
+}
+.app-setting:first-child {
+  box-shadow: none;
+}
+.app-setting-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.app-setting-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-weight: 500;
+}
+.app-setting-key {
+  font-size: 12px;
+  font-weight: 400;
+}
+.app-setting-control {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+.app-setting-reading {
+  font-weight: 500;
+}
+.app-setting-select {
+  width: 220px;
+}
+.app-setting-number {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.app-setting-number .ca-field {
+  width: 110px;
+}
+.app-setting-reset {
+  padding: 0;
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.app-setting-head p {
+  margin: var(--space-1) 0 0;
+}
+.app-settings-link {
+  align-items: center;
+}
+@media (max-width: 560px) {
+  .app-setting {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .app-setting-control {
+    justify-content: flex-start;
+  }
+  .app-setting-select {
+    width: 100%;
+  }
+}

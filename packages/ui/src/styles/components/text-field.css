@@ -1,0 +1,51 @@
+/* TextField */
+.ca-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: 360px;
+}
+.ca-field-label {
+  font: 500 13px / 18px var(--font-sans);
+  color: var(--ink);
+}
+.ca-input {
+  height: 36px;
+  box-sizing: border-box;
+  padding: 0 var(--space-3);
+  border-radius: var(--surface-control-radius, var(--radius-sm));
+  border: var(--surface-control-border, 1px solid var(--line-strong));
+  background: var(--surface-raised);
+  color: var(--ink);
+  font: 400 15px / 22px var(--font-sans);
+}
+.ca-input.ca-mono {
+  font-size: 13px;
+}
+.ca-input::placeholder {
+  color: var(--ink-muted);
+}
+.ca-field-invalid .ca-input {
+  border-color: var(--danger);
+}
+.ca-field-hint {
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-field-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--danger);
+}
+
+/* Named for a screen reader only: the row beside the field names it for the eye. */
+.ca-field-label-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

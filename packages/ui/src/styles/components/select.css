@@ -1,0 +1,29 @@
+/* Select / Combobox */
+.ca-select,
+.ca-combo-box {
+  position: relative;
+  display: block;
+}
+.ca-select-input {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 36px;
+  cursor: pointer;
+}
+.ca-combo-input {
+  width: 100%;
+  padding-right: 36px;
+}
+.ca-select-chevron {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -8px;
+  color: var(--ink-muted);
+  pointer-events: none;
+}
+:where(.ca-input):focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}

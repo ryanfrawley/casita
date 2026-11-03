@@ -1,0 +1,139 @@
+/* Generated from design/tokens.json by scripts/tokens.ts. Do not edit. */
+
+:root {
+  color-scheme: light;
+  --plaster: #f6f1ea;
+  --surface-raised: #fffcf7;
+  --surface-sunken: #ebe3d7;
+  --line: #d9cdbd;
+  --line-strong: #8c7c69;
+  --ink: #2a221b;
+  --ink-muted: #6a5d50;
+  --terracotta: #b0502a;
+  --on-terracotta: #ffffff;
+  --terracotta-ink: #9a4522;
+  --lamp: #eaa63e;
+  --ink-on-lamp: #2a221b;
+  --lamp-soft: #f8e3bd;
+  --sky: #2d6590;
+  --on-sky: #ffffff;
+  --sage: #3a7454;
+  --ember: #e4572e;
+  --danger: #a3243b;
+  --on-danger: #ffffff;
+  --unavailable: #a99a88;
+  --series-1: #c0582e;
+  --series-2: #2f74b5;
+  --series-3: #1a9a7a;
+  --shadow-tile: 0 1px 2px rgba(42,34,27,0.08), 0 2px 8px rgba(42,34,27,0.06);
+  --shadow-lift: 0 8px 24px rgba(42,34,27,0.14);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --grid-unit: 56px;
+  --grid-step: 16px;
+  --grid-pitch: 72px;
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-arch: 999px;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Figtree", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Night follows the system unless the page asks for a theme by name. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --plaster: #1a1714;
+    --surface-raised: #25201b;
+    --surface-sunken: #110f0d;
+    --line: #3d352d;
+    --line-strong: #857563;
+    --ink: #f2ebe2;
+    --ink-muted: #b2a593;
+    --terracotta: #e07c50;
+    --on-terracotta: #1a1714;
+    --terracotta-ink: #ec9670;
+    --lamp: #f2b85a;
+    --ink-on-lamp: #1a1714;
+    --lamp-soft: #4a3820;
+    --sky: #8cc3ea;
+    --on-sky: #110f0d;
+    --sage: #7cc39b;
+    --ember: #ff8a5c;
+    --danger: #ff8f9c;
+    --on-danger: #110f0d;
+    --unavailable: #5e5347;
+    --series-1: #d0663a;
+    --series-2: #4a86d6;
+    --series-3: #1ea38c;
+    --shadow-tile: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-lift: 0 8px 24px rgba(0,0,0,0.5);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --plaster: #1a1714;
+  --surface-raised: #25201b;
+  --surface-sunken: #110f0d;
+  --line: #3d352d;
+  --line-strong: #857563;
+  --ink: #f2ebe2;
+  --ink-muted: #b2a593;
+  --terracotta: #e07c50;
+  --on-terracotta: #1a1714;
+  --terracotta-ink: #ec9670;
+  --lamp: #f2b85a;
+  --ink-on-lamp: #1a1714;
+  --lamp-soft: #4a3820;
+  --sky: #8cc3ea;
+  --on-sky: #110f0d;
+  --sage: #7cc39b;
+  --ember: #ff8a5c;
+  --danger: #ff8f9c;
+  --on-danger: #110f0d;
+  --unavailable: #5e5347;
+  --series-1: #d0663a;
+  --series-2: #4a86d6;
+  --series-3: #1ea38c;
+  --shadow-tile: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-lift: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.ca-text-display {
+  font: 600 var(--text-display-size, 40px)/calc(var(--text-display-size, 40px) + 4px) var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.ca-text-reading {
+  font: 500 var(--text-reading-size, 32px)/calc(var(--text-reading-size, 32px) + 4px) var(--font-display);
+}
+
+.ca-text-title {
+  font: 600 var(--text-title-size, 22px)/calc(var(--text-title-size, 22px) + 6px) var(--font-sans);
+}
+
+.ca-text-heading {
+  font: 600 var(--text-heading-size, 16px)/calc(var(--text-heading-size, 16px) + 6px) var(--font-sans);
+}
+
+.ca-text-body {
+  font: 400 var(--text-body-size, 15px)/calc(var(--text-body-size, 15px) + 7px) var(--font-sans);
+}
+
+.ca-text-label {
+  font: 500 var(--text-label-size, 13px)/calc(var(--text-label-size, 13px) + 5px) var(--font-sans);
+}
+
+.ca-text-caption {
+  font: 400 var(--text-caption-size, 12px)/calc(var(--text-caption-size, 12px) + 4px) var(--font-sans);
+}
+
+.ca-text-entity-id {
+  font: 400 var(--text-entity-id-size, 13px)/calc(var(--text-entity-id-size, 13px) + 5px) var(--font-mono);
+}

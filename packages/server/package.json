@@ -1,0 +1,25 @@
+{
+  "name": "@casita/server",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@casita/core": "workspace:*",
+    "@casita/api": "workspace:*",
+    "@casita/integration-demo": "workspace:*",
+    "@casita/integration-mqtt": "workspace:*",
+    "@casita/integration-zigbee2mqtt": "workspace:*",
+    "@casita/integration-esphome": "workspace:*",
+    "@casita/integration-zwave-js": "workspace:*",
+    "@casita/integration-lamarzocco": "workspace:*",
+    "@casita/integration-rachio": "workspace:*",
+    "@casita/integration-tesla": "workspace:*",
+    "@casita/integration-teslamate": "workspace:*",
+    "@casita/integration-open-meteo": "workspace:*",
+    "@casita/integration-qolsys": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/app.ts"
+  }
+}

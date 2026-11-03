@@ -1,0 +1,125 @@
+/* Overlays */
+.ca-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background: rgba(26, 23, 20, 0.45);
+}
+.ca-scrim-sheet {
+  display: block;
+  padding: 0;
+}
+
+.ca-dialog {
+  width: 100%;
+  max-height: calc(100% - 2 * var(--space-4));
+  overflow: auto;
+  box-sizing: border-box;
+  padding: var(--space-6);
+  background: var(--surface-raised-background, var(--surface-raised));
+  color: var(--ink);
+  border-radius: var(--surface-raised-radius, var(--radius-md));
+  box-shadow: var(--surface-raised-shadow, var(--shadow-lift));
+}
+.ca-dialog-sm {
+  max-width: 440px;
+}
+.ca-dialog-md {
+  max-width: 560px;
+}
+.ca-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.ca-dialog-icon {
+  color: var(--danger);
+  margin-top: 1px;
+}
+.ca-dialog-title {
+  margin: 0;
+  font: 600 18px / 24px var(--font-sans);
+}
+.ca-dialog-desc {
+  margin: var(--space-2) 0 0;
+  font: 400 15px / 22px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-dialog-danger .ca-dialog-desc {
+  padding-left: 34px;
+}
+.ca-dialog-body {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.ca-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+.ca-sheet {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  width: 480px;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-raised-background, var(--surface-raised));
+  color: var(--ink);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--surface-raised-shadow, var(--shadow-lift));
+}
+.ca-scrim-sheet .ca-sheet {
+  position: absolute;
+}
+.ca-sheet-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--line);
+}
+.ca-sheet-titles {
+  flex: 1;
+  min-width: 0;
+  padding-top: 4px;
+}
+.ca-sheet-title {
+  margin: 0;
+  font: 600 18px / 24px var(--font-sans);
+}
+.ca-sheet-sub {
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-sheet-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.ca-sheet-body {
+  flex: 1;
+  overflow: auto;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.ca-sheet-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--line);
+}

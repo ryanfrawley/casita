@@ -1,0 +1,46 @@
+/* DataTable */
+.ca-table-wrap {
+  overflow-x: auto;
+  background: var(--surface-card-background, var(--surface-sunken));
+  border: var(--surface-card-border, none);
+  border-radius: var(--surface-card-radius, var(--radius-md));
+}
+.ca-table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 400 14px / 20px var(--font-sans);
+}
+.ca-table caption {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  font: 600 16px / 22px var(--font-sans);
+}
+.ca-table th {
+  padding: var(--space-2) var(--space-4);
+  font: 500 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+  background: var(--plaster);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.ca-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.ca-table td.ca-mono {
+  color: var(--ink-muted);
+}
+.ca-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.ca-table tbody tr:hover td {
+  background: var(--plaster);
+}
+/* Not in the design system yet: a row that opens what its caret opens. */
+.ca-table tbody tr.ca-table-row-link {
+  cursor: pointer;
+}
+.ca-table-dense td {
+  padding: var(--space-2) var(--space-4);
+}

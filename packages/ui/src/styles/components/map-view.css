@@ -1,0 +1,77 @@
+/* MapView: a still map in a sunken frame, a pin at its centre in the card's accent. In a dark
+   theme the tiles are inverted and turned back round the colour wheel, so water stays blue. */
+.ca-map {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+  /* The edge is drawn inside, so the map is exactly the height it is given. */
+  outline: 1px solid var(--line);
+  outline-offset: -1px;
+  isolation: isolate;
+}
+.ca-map-tiles {
+  position: absolute;
+  inset: 0;
+}
+.ca-map-tile {
+  position: absolute;
+  width: 256px;
+  height: 256px;
+  max-width: none;
+  user-select: none;
+  pointer-events: none;
+}
+.ca-map-dark .ca-map-tiles {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9) saturate(0.6);
+}
+.ca-map-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--ca-accent, var(--sky));
+  box-shadow:
+    0 0 0 2px var(--surface-raised),
+    var(--shadow-tile);
+}
+/* The heading: a point on the pin's rim, turned with it. */
+.ca-map-pin-heading::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -13px;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-top: 0;
+  border-bottom: 9px solid var(--ca-accent, var(--sky));
+}
+.ca-map-credit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 1px var(--space-1);
+  border-top-left-radius: 4px;
+  background: color-mix(in srgb, var(--surface-raised) 85%, transparent);
+  color: var(--ink-muted);
+  font: 400 10px / 14px var(--font-sans);
+  text-decoration: none;
+}
+.ca-map-credit:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.ca-map-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ca-map-none {
+  color: var(--ink-muted);
+  font: 500 13px / 18px var(--font-sans);
+}

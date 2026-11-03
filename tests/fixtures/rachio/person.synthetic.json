@@ -1,0 +1,19 @@
+{
+  "id": "person-1",
+  "username": "ryan",
+  "devices": [
+    {
+      "id": "dev-1",
+      "name": "Backyard",
+      "status": "ONLINE",
+      "on": true,
+      "model": "GENERATION3_8ZONE",
+      "serialNumber": "VR0000001",
+      "zones": [
+        { "id": "zone-2", "zoneNumber": 2, "name": "Roses", "enabled": true },
+        { "id": "zone-1", "zoneNumber": 1, "name": "Lawn", "enabled": true },
+        { "id": "zone-3", "zoneNumber": 3, "name": "Zone 3", "enabled": false }
+      ]
+    }
+  ]
+}

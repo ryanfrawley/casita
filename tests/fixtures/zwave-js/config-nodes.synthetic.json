@@ -1,0 +1,1007 @@
+{
+  "state": {
+    "controller": {
+      "homeId": 3405691582
+    },
+    "nodes": [
+      {
+        "nodeId": 11,
+        "name": "Kitchen dimmer",
+        "status": 4,
+        "ready": true,
+        "firmwareVersion": "1.4",
+        "deviceConfig": {
+          "manufacturer": "Inovelli",
+          "manufacturerId": 798,
+          "label": "VZW31-SN",
+          "description": "2-1 Dimmer",
+          "devices": [
+            {
+              "productType": "0x0015",
+              "productId": "0x0001"
+            }
+          ]
+        },
+        "deviceClass": {
+          "generic": {
+            "key": 17,
+            "label": "Multilevel Switch"
+          },
+          "specific": {
+            "key": 1,
+            "label": "Multilevel Power Switch"
+          }
+        },
+        "values": [
+          {
+            "endpoint": 0,
+            "commandClass": 38,
+            "commandClassName": "Multilevel Switch",
+            "property": "currentValue",
+            "propertyName": "currentValue",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": false,
+              "label": "Current value",
+              "min": 0,
+              "max": 99
+            },
+            "value": 0
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 38,
+            "commandClassName": "Multilevel Switch",
+            "property": "targetValue",
+            "propertyName": "targetValue",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Target value",
+              "min": 0,
+              "max": 99
+            },
+            "value": 0
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 12,
+            "propertyName": "Auto Off Timer",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Auto Off Timer",
+              "min": 0,
+              "max": 32767,
+              "default": 0,
+              "valueSize": 2,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Disabled"
+              },
+              "unit": "seconds"
+            },
+            "value": 0
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 21,
+            "propertyName": "Power Type",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": false,
+              "label": "Power Type",
+              "min": 0,
+              "max": 1,
+              "default": 0,
+              "valueSize": 1,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Non-Neutral",
+                "1": "Neutral"
+              },
+              "allowManualEntry": false
+            },
+            "value": 1
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 22,
+            "propertyName": "Switch Type",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Switch Type",
+              "min": 0,
+              "max": 3,
+              "default": 0,
+              "valueSize": 1,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Single pole",
+                "1": "Multi-Way with dumb/toggle switch",
+                "2": "Multi-Way with aux switch",
+                "3": "Single pole full sine wave (On/Off mode only)"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 52,
+            "propertyName": "Smart Bulb Mode",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Smart Bulb Mode",
+              "min": 0,
+              "max": 1,
+              "default": 0,
+              "valueSize": 1,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Disable",
+                "1": "Enable"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 59,
+            "propertyName": "Send Local Commands to Associated Devices",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Send Local Commands to Associated Devices",
+              "min": 0,
+              "max": 1,
+              "default": 1,
+              "valueSize": 1,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Disable",
+                "1": "Enable"
+              },
+              "allowManualEntry": false
+            },
+            "value": 1,
+            "propertyKey": 1,
+            "propertyKeyName": "Send Local Commands to Associated Devices"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 59,
+            "propertyName": "Forward Z-Wave Commands to Associated Devices",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Forward Z-Wave Commands to Associated Devices",
+              "min": 0,
+              "max": 1,
+              "default": 0,
+              "valueSize": 1,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Disable",
+                "1": "Enable"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0,
+            "propertyKey": 2,
+            "propertyKeyName": "Forward Z-Wave Commands to Associated Devices"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 64,
+            "propertyName": "LED1 Strip Effect - Duration",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED1 Strip Effect - Duration",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "255": "Indefinitely"
+              },
+              "description": "1-60 = seconds; 61-120 = minutes (minus 60); 121-254 = hours (minus 120)"
+            },
+            "value": 0,
+            "propertyKey": 255,
+            "propertyKeyName": "LED1 Strip Effect - Duration"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 64,
+            "propertyName": "LED1 Strip Effect - Level",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED1 Strip Effect - Level",
+              "min": 0,
+              "max": 100,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 0,
+            "propertyKey": 65280,
+            "propertyKeyName": "LED1 Strip Effect - Level"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 64,
+            "propertyName": "LED1 Strip Effect - Color",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED1 Strip Effect - Color",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 170,
+            "propertyKey": 16711680,
+            "propertyKeyName": "LED1 Strip Effect - Color"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 64,
+            "propertyName": "LED1 Strip Effect - Effect",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED1 Strip Effect - Effect",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "Solid",
+                "2": "Fast blink",
+                "3": "Slow blink",
+                "4": "Pulse",
+                "5": "Chase",
+                "6": "Falling",
+                "7": "Rising",
+                "8": "Aurora",
+                "255": "Clear"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0,
+            "propertyKey": 4278190080,
+            "propertyKeyName": "LED1 Strip Effect - Effect"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 95,
+            "propertyName": "Default All LED Strip Color When On",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Default All LED Strip Color When On",
+              "min": 0,
+              "max": 255,
+              "default": 170,
+              "valueSize": 1,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 170
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 97,
+            "propertyName": "Default All LED Strip Brightness When On",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Default All LED Strip Brightness When On",
+              "min": 0,
+              "max": 100,
+              "default": 33,
+              "valueSize": 1,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 33
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 99,
+            "propertyName": "All LED Strip Effect - Duration",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "All LED Strip Effect - Duration",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "255": "Indefinitely"
+              },
+              "description": "1-60 = seconds; 61-120 = minutes (minus 60); 121-254 = hours (minus 120)"
+            },
+            "value": 0,
+            "propertyKey": 255,
+            "propertyKeyName": "All LED Strip Effect - Duration"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 99,
+            "propertyName": "All LED Strip Effect - Level",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "All LED Strip Effect - Level",
+              "min": 0,
+              "max": 100,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 0,
+            "propertyKey": 65280,
+            "propertyKeyName": "All LED Strip Effect - Level"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 99,
+            "propertyName": "All LED Strip Effect - Color",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "All LED Strip Effect - Color",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 170,
+            "propertyKey": 16711680,
+            "propertyKeyName": "All LED Strip Effect - Color"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 99,
+            "propertyName": "All LED Strip Effect - Effect",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "All LED Strip Effect - Effect",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "Solid",
+                "2": "Fast blink",
+                "3": "Slow blink",
+                "4": "Pulse",
+                "5": "Chase",
+                "6": "Open/close",
+                "7": "Small to big",
+                "8": "Aurora",
+                "9": "Slow fall",
+                "10": "Medium fall",
+                "11": "Fast fall",
+                "12": "Slow rise",
+                "13": "Medium rise",
+                "14": "Fast rise",
+                "15": "Medium blink",
+                "16": "Slow chase",
+                "17": "Fast chase",
+                "18": "Fast siren",
+                "19": "Slow siren",
+                "255": "Clear"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0,
+            "propertyKey": 4278190080,
+            "propertyKeyName": "All LED Strip Effect - Effect"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 240,
+            "propertyName": "Factory Reset",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Factory Reset",
+              "min": 0,
+              "max": 4294967295,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Default",
+                "120935937": "Perform a factory reset"
+              },
+              "allowManualEntry": false,
+              "destructive": true
+            },
+            "value": 0
+          }
+        ]
+      },
+      {
+        "nodeId": 12,
+        "name": "Hall dimmer",
+        "status": 4,
+        "ready": true,
+        "firmwareVersion": "1.4",
+        "deviceConfig": {
+          "manufacturer": "Inovelli",
+          "manufacturerId": 798,
+          "label": "LZW31-SN",
+          "description": "Red Series Dimmer",
+          "devices": [
+            {
+              "productType": "0x0015",
+              "productId": "0x0001"
+            }
+          ]
+        },
+        "deviceClass": {
+          "generic": {
+            "key": 17,
+            "label": "Multilevel Switch"
+          },
+          "specific": {
+            "key": 1,
+            "label": "Multilevel Power Switch"
+          }
+        },
+        "values": [
+          {
+            "endpoint": 0,
+            "commandClass": 38,
+            "commandClassName": "Multilevel Switch",
+            "property": "currentValue",
+            "propertyName": "currentValue",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": false,
+              "label": "Current value",
+              "min": 0,
+              "max": 99
+            },
+            "value": 40
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 38,
+            "commandClassName": "Multilevel Switch",
+            "property": "targetValue",
+            "propertyName": "targetValue",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Target value",
+              "min": 0,
+              "max": 99
+            },
+            "value": 40
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 16,
+            "propertyName": "LED Indicator: Effect Color",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED Indicator: Effect Color",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Red",
+                "21": "Orange",
+                "42": "Yellow",
+                "85": "Green",
+                "127": "Cyan",
+                "170": "Blue",
+                "212": "Violet",
+                "234": "Pink",
+                "255": "White"
+              }
+            },
+            "value": 170,
+            "propertyKey": 255,
+            "propertyKeyName": "LED Indicator: Effect Color"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 16,
+            "propertyName": "LED Indicator: Effect Brightness",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED Indicator: Effect Brightness",
+              "min": 0,
+              "max": 10,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "10%",
+                "2": "20%",
+                "3": "30%",
+                "4": "40%",
+                "5": "50%",
+                "6": "60%",
+                "7": "70%",
+                "8": "80%",
+                "9": "90%",
+                "10": "100%"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0,
+            "propertyKey": 65280,
+            "propertyKeyName": "LED Indicator: Effect Brightness"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 16,
+            "propertyName": "LED Indicator: Effect Duration",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED Indicator: Effect Duration",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 0,
+            "propertyKey": 16711680,
+            "propertyKeyName": "LED Indicator: Effect Duration"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 16,
+            "propertyName": "LED Indicator: Effect Type",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "LED Indicator: Effect Type",
+              "min": 0,
+              "max": 5,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "Solid",
+                "2": "Chase",
+                "3": "Fast blink",
+                "4": "Slow blink",
+                "5": "Pulse"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0,
+            "propertyKey": 2130706432,
+            "propertyKeyName": "LED Indicator: Effect Type"
+          }
+        ]
+      },
+      {
+        "nodeId": 13,
+        "name": "Bedroom fan",
+        "status": 4,
+        "ready": true,
+        "firmwareVersion": "1.4",
+        "deviceConfig": {
+          "manufacturer": "Inovelli",
+          "manufacturerId": 798,
+          "label": "LZW36",
+          "description": "Fan/Light Dimmer",
+          "devices": [
+            {
+              "productType": "0x0015",
+              "productId": "0x0001"
+            }
+          ]
+        },
+        "deviceClass": {
+          "generic": {
+            "key": 17,
+            "label": "Multilevel Switch"
+          },
+          "specific": {
+            "key": 1,
+            "label": "Multilevel Power Switch"
+          }
+        },
+        "values": [
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 24,
+            "propertyName": "Light LED Effect Color",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Light LED Effect Color",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Red",
+                "21": "Orange",
+                "42": "Yellow",
+                "85": "Green",
+                "127": "Cyan",
+                "170": "Blue",
+                "212": "Violet",
+                "234": "Pink",
+                "255": "White"
+              }
+            },
+            "value": 0,
+            "propertyKey": 255,
+            "propertyKeyName": "Light LED Effect Color"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 24,
+            "propertyName": "Light LED Effect Brightness",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Light LED Effect Brightness",
+              "min": 0,
+              "max": 10,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "10%",
+                "2": "20%",
+                "3": "30%",
+                "4": "40%",
+                "5": "50%",
+                "6": "60%",
+                "7": "70%",
+                "8": "80%",
+                "9": "90%",
+                "10": "100%"
+              },
+              "allowManualEntry": false
+            },
+            "value": 5,
+            "propertyKey": 65280,
+            "propertyKeyName": "Light LED Effect Brightness"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 24,
+            "propertyName": "Light LED Effect Duration",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Light LED Effect Duration",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 10,
+            "propertyKey": 16711680,
+            "propertyKeyName": "Light LED Effect Duration"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 24,
+            "propertyName": "Light LED Effect Type",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Light LED Effect Type",
+              "min": 0,
+              "max": 5,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "Solid",
+                "2": "Chase",
+                "3": "Fast blink",
+                "4": "Slow blink",
+                "5": "Pulse"
+              },
+              "allowManualEntry": false
+            },
+            "value": 1,
+            "propertyKey": 2130706432,
+            "propertyKeyName": "Light LED Effect Type"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 25,
+            "propertyName": "Fan LED Effect Color",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Fan LED Effect Color",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Red",
+                "21": "Orange",
+                "42": "Yellow",
+                "85": "Green",
+                "127": "Cyan",
+                "170": "Blue",
+                "212": "Violet",
+                "234": "Pink",
+                "255": "White"
+              }
+            },
+            "value": 85,
+            "propertyKey": 255,
+            "propertyKeyName": "Fan LED Effect Color"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 25,
+            "propertyName": "Fan LED Effect Brightness",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Fan LED Effect Brightness",
+              "min": 0,
+              "max": 10,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "10%",
+                "2": "20%",
+                "3": "30%",
+                "4": "40%",
+                "5": "50%",
+                "6": "60%",
+                "7": "70%",
+                "8": "80%",
+                "9": "90%",
+                "10": "100%"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0,
+            "propertyKey": 65280,
+            "propertyKeyName": "Fan LED Effect Brightness"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 25,
+            "propertyName": "Fan LED Effect Duration",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Fan LED Effect Duration",
+              "min": 0,
+              "max": 255,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true
+            },
+            "value": 0,
+            "propertyKey": 16711680,
+            "propertyKeyName": "Fan LED Effect Duration"
+          },
+          {
+            "endpoint": 0,
+            "commandClass": 112,
+            "commandClassName": "Configuration",
+            "property": 25,
+            "propertyName": "Fan LED Effect Type",
+            "ccVersion": 4,
+            "metadata": {
+              "type": "number",
+              "readable": true,
+              "writeable": true,
+              "label": "Fan LED Effect Type",
+              "min": 0,
+              "max": 5,
+              "default": 0,
+              "valueSize": 4,
+              "format": 1,
+              "isFromConfig": true,
+              "states": {
+                "0": "Off",
+                "1": "Solid",
+                "2": "Chase",
+                "3": "Fast blink",
+                "4": "Slow blink",
+                "5": "Pulse"
+              },
+              "allowManualEntry": false
+            },
+            "value": 0,
+            "propertyKey": 2130706432,
+            "propertyKeyName": "Fan LED Effect Type"
+          }
+        ]
+      }
+    ]
+  }
+}

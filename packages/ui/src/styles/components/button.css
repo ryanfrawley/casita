@@ -1,0 +1,56 @@
+/* Button */
+.ca-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: 500 14px / 20px var(--font-sans);
+  border-radius: var(--surface-control-radius, var(--radius-sm));
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ca-btn-md {
+  height: 36px;
+  padding: 0 var(--space-4);
+}
+.ca-btn-sm {
+  height: 28px;
+  padding: 0 var(--space-3);
+  font-size: 13px;
+}
+.ca-btn-primary {
+  background: var(--terracotta);
+  color: var(--on-terracotta);
+}
+.ca-btn-primary:hover {
+  filter: brightness(1.06);
+}
+.ca-btn-secondary {
+  background: var(--surface-raised);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.ca-btn-secondary:hover {
+  background: var(--surface-sunken);
+}
+.ca-btn-quiet {
+  background: transparent;
+  color: var(--ink);
+}
+.ca-btn-quiet:hover {
+  background: var(--surface-sunken);
+}
+.ca-btn-danger {
+  background: var(--surface-raised);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.ca-btn-danger:hover {
+  background: var(--danger);
+  color: var(--on-danger);
+}
+.ca-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: none;
+}

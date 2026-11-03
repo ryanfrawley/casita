@@ -1,0 +1,16 @@
+{
+  "vin": "5YJ3E1EA7JF000001",
+  "display_name": "Nightshade",
+  "state": "online",
+  "charge_state": {
+    "battery_level": 72,
+    "battery_range": 218.4,
+    "charge_limit_soc": 80,
+    "charging_state": "Charging",
+    "charger_power": 11,
+    "minutes_to_full_charge": 45
+  },
+  "climate_state": { "inside_temp": 21.5, "outside_temp": 14 },
+  "vehicle_state": { "locked": true, "odometer": 30211.72, "car_version": "2026.32.4" },
+  "vehicle_config": { "car_type": "model3" }
+}

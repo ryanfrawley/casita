@@ -1,0 +1,82 @@
+/* Checkbox */
+.ca-cb-field {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.ca-cb {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}
+.ca-cb-input {
+  position: absolute;
+  inset: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ca-cb-box {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface-raised);
+  color: var(--plaster);
+  pointer-events: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+.ca-cb-check,
+.ca-cb-dash {
+  display: none;
+  grid-area: 1 / 1;
+  stroke-width: 2.5;
+}
+.ca-cb-input:checked + .ca-cb-box,
+.ca-cb-input:indeterminate + .ca-cb-box {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.ca-cb-input:checked:not(:indeterminate) + .ca-cb-box .ca-cb-check {
+  display: block;
+}
+.ca-cb-input:indeterminate + .ca-cb-box .ca-cb-dash {
+  display: block;
+}
+.ca-cb-input:hover + .ca-cb-box {
+  border-color: var(--ink);
+}
+.ca-cb-input:focus-visible + .ca-cb-box {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+.ca-cb-input:disabled {
+  cursor: not-allowed;
+}
+.ca-cb-disabled {
+  opacity: 0.45;
+}
+.ca-cb-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ca-cb-label {
+  font: 400 15px / 22px var(--font-sans);
+  color: var(--ink);
+  cursor: pointer;
+}
+.ca-cb-hint {
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}

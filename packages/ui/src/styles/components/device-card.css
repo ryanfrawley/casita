@@ -1,0 +1,222 @@
+/* DeviceCard + DeviceSection */
+.ca-device {
+  background: var(--surface-card-background, var(--surface-sunken));
+  border: var(--surface-card-border, none);
+  border-radius: var(--surface-card-radius, var(--radius-md));
+  overflow: hidden;
+}
+.ca-device-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: var(--space-2) var(--space-4);
+}
+/* The icon's box follows the theme's `card.icon` group, with the design's arch as the fallback. */
+.ca-device-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: calc(var(--card-icon-size, 22px) + 2 * var(--card-icon-padding, 9px));
+  height: calc(var(--card-icon-size, 22px) + 2 * var(--card-icon-padding, 9px));
+  border-radius: var(--card-icon-shape, var(--radius-arch));
+  border: var(--card-icon-box, var(--card-icon-border, none));
+  background: var(--card-icon-box, var(--card-icon-background, var(--surface-raised)));
+  color: var(--ink-muted);
+}
+.ca-device-icon > svg {
+  width: var(--card-icon-size, 22px);
+  height: var(--card-icon-size, 22px);
+}
+.ca-device-icon-on {
+  background: color-mix(in srgb, var(--lamp) 18%, transparent);
+  color: color-mix(in oklch, var(--lamp) 85%, var(--ink));
+}
+.ca-device-unavailable .ca-device-icon {
+  background: var(--surface-raised)
+    repeating-linear-gradient(135deg, transparent 0 4px, var(--unavailable) 4px 5px);
+  box-shadow: inset 0 0 0 1px var(--unavailable);
+}
+.ca-device-titles {
+  flex: 1;
+  min-width: 0;
+}
+.ca-device-nameline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.ca-device-name {
+  margin: 0;
+  font:
+    var(--card-title-weight, 600) var(--card-title-size, 16px) / 22px
+    var(--card-title-font, var(--font-sans));
+  color: var(--card-title-color, var(--ink));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ca-device-disabled .ca-device-icon {
+  opacity: 0.5;
+}
+.ca-device-meta {
+  font:
+    var(--card-subtitle-weight, 400) var(--card-subtitle-size, 12px) / 16px
+    var(--card-subtitle-font, var(--font-sans));
+  color: var(--card-subtitle-color, var(--ink-muted));
+}
+.ca-device-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.ca-device-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  margin: 0;
+  box-shadow: inset 0 1px var(--line);
+}
+.ca-device-stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: 0 var(--space-4);
+  box-shadow: inset 1px 0 var(--line);
+}
+.ca-device-stat:first-child {
+  box-shadow: none;
+}
+.ca-device-stat dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-device-stat dd {
+  margin: 2px 0 0;
+  font: 600 15px / 20px var(--font-sans);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.ca-device-msg {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: var(--space-2) var(--space-4);
+  box-shadow: inset 0 1px var(--line);
+  font: 400 13px / 18px var(--font-sans);
+  color: var(--danger);
+}
+.ca-device-body > .ca-row,
+.ca-device-body > .ca-dsec {
+  box-shadow: inset 0 1px var(--line);
+}
+.ca-device-body > .ca-row {
+  border-bottom: 0;
+}
+.ca-device-foot {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: 0 var(--space-4);
+  box-shadow: inset 0 1px var(--line);
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-dsec-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-right: var(--space-4);
+}
+.ca-dsec-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.ca-dsec-static {
+  cursor: default;
+}
+.ca-dsec-chevron {
+  color: var(--ink-muted);
+  transition: transform 150ms ease;
+}
+.ca-dsec-closed .ca-dsec-chevron {
+  transform: rotate(-90deg);
+}
+.ca-dsec-icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--card-icon-background, var(--surface-raised));
+  color: var(--ink-muted);
+}
+.ca-dsec-icon.ca-row-on {
+  background: color-mix(in srgb, var(--lamp) 18%, transparent);
+  color: color-mix(in oklch, var(--lamp) 85%, var(--ink));
+}
+.ca-dsec-icon.ca-row-pending {
+  background: var(--surface-raised);
+  box-shadow: inset 0 0 0 1px var(--sky);
+  color: var(--sky);
+}
+.ca-dsec-titles {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.ca-dsec-title {
+  font: 600 14px / 20px var(--font-sans);
+  white-space: nowrap;
+}
+.ca-dsec-summary {
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ca-dsec-aside {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.ca-dsec-body > .ca-row {
+  box-shadow: inset 0 1px var(--line);
+  border-bottom: 0;
+  padding-left: var(--space-8);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ca-dsec-chevron {
+    transition: none;
+  }
+}
+/* The card's blocks are a gutter apart, the line at each block's top edge. */
+.ca-device > :where(* + *),
+.ca-device-body > :where(* + *),
+.ca-dsec-body > .ca-row {
+  margin-top: var(--grid-step);
+}

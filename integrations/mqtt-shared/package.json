@@ -1,0 +1,19 @@
+{
+  "name": "@casita/mqtt-shared",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./testing": "./src/testing.ts"
+  },
+  "dependencies": {
+    "@casita/core": "workspace:*",
+    "mqtt": "^5.16.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@casita/integration-testing": "workspace:*"
+  }
+}

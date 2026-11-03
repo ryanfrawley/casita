@@ -1,0 +1,19 @@
+{
+  "casita/light/dimmer_7/config": {
+    "name": "Hall dimmer",
+    "unique_id": "dimmer_7",
+    "state_topic": "dimmer_7/power",
+    "command_topic": "dimmer_7/power/set",
+    "brightness_state_topic": "dimmer_7/level",
+    "brightness_command_topic": "dimmer_7/level/set",
+    "brightness_scale": 100,
+    "payload_on": "on",
+    "payload_off": "off",
+    "device": {
+      "identifiers": "dimmer_7",
+      "name": "Dimmer 7",
+      "manufacturer": "Acme",
+      "model": "D1"
+    }
+  }
+}

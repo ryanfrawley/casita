@@ -1,0 +1,76 @@
+/* Toggle (the control). Drawn as the bars are: off, an outline with a muted knob; on, the
+   track only tinted in its accent and the knob a dot of it. The accent is the lamp's, or a
+   card's (`--toggle-accent`). */
+.ca-toggle {
+  --toggle-accent: var(--lamp);
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 24px;
+  padding: 0;
+  border-radius: var(--radius-arch);
+  border: var(--surface-control-border, 1px solid var(--line-strong));
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+.ca-toggle-knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ink-muted);
+  display: grid;
+  place-items: center;
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease;
+}
+.ca-toggle-on {
+  background: color-mix(in srgb, var(--toggle-accent) 20%, transparent);
+  border-color: color-mix(in srgb, var(--toggle-accent) 50%, transparent);
+}
+.ca-toggle-on .ca-toggle-knob {
+  transform: translateX(16px);
+  background: var(--toggle-accent);
+}
+.ca-toggle-pending {
+  background: color-mix(in srgb, var(--sky) 12%, transparent);
+  border-color: color-mix(in srgb, var(--sky) 60%, transparent);
+  cursor: progress;
+}
+.ca-toggle-pending[aria-checked="true"] .ca-toggle-knob {
+  transform: translateX(16px);
+}
+.ca-toggle-pending .ca-toggle-knob {
+  background: var(--sky);
+  color: var(--on-sky);
+}
+.ca-toggle:disabled {
+  cursor: not-allowed;
+}
+.ca-toggle-off:disabled {
+  opacity: 0.45;
+}
+/* Unavailable: the outline dashed, as an unavailable bar's line is, and no knob. */
+.ca-toggle-unavailable {
+  border-style: dashed;
+  border-color: var(--unavailable);
+}
+.ca-toggle-unavailable .ca-toggle-knob {
+  display: none;
+}
+.ca-toggle-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.ca-toggle-label {
+  font: 500 14px / 20px var(--font-sans);
+  color: var(--ink);
+  cursor: pointer;
+}

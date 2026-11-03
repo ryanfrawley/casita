@@ -1,0 +1,130 @@
+/* ScaleBar: a reading on its health bands, their colours blended along one track. Six steps,
+   best to worst, made from the palette: sage, lamp, ember, danger, then danger turned toward
+   violet and toward dark, as the UV and air-quality scales colour their worst bands. */
+.ca-scale {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  --scale-1: var(--sage);
+  --scale-2: var(--lamp);
+  --scale-3: var(--ember);
+  --scale-4: var(--danger);
+  --scale-5: color-mix(in oklch, var(--danger) 55%, var(--sky));
+  --scale-6: color-mix(in srgb, var(--danger) 55%, var(--ink));
+}
+.ca-scale-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: 6px;
+  font: 500 13px / 18px var(--font-sans);
+}
+/* The name and its band's word together on the left; the value alone on the right. */
+.ca-scale-name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+.ca-scale-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ca-scale-value {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+/* The band's word is a quiet aside, as SunPath's detail is, its colour only in a small dot. */
+.ca-scale-word {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 400 12px / 16px var(--font-sans);
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.ca-scale-word::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--scale-tone);
+}
+/* One track through the bands' colours, drawn as SunPath draws its day: the whole of it a faint
+   line, the stretch up to the reading a bold one, and the bands' colours under both. The track
+   itself paints nothing; its gradient is handed to the two lines. Without a reading it is the
+   faint line alone, greyed, so a missing value does not read as a good one. */
+.ca-scale-track {
+  position: relative;
+  height: 10px;
+  background-size: 0 0;
+  background-repeat: no-repeat;
+}
+.ca-scale-track::before,
+.ca-scale-track::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-radius: 999px;
+  background-image: inherit;
+  background-size: 100% 100%;
+}
+.ca-scale-track::before {
+  height: 2px;
+  margin-top: -1px;
+  opacity: 0.3;
+}
+.ca-scale-track::after {
+  height: 3px;
+  margin-top: -1.5px;
+  clip-path: inset(0 calc(100% - var(--scale-at, 0%)) 0 0 round 999px);
+}
+.ca-scale-none .ca-scale-track::before {
+  filter: grayscale(1);
+}
+.ca-scale-none .ca-scale-track::after {
+  display: none;
+}
+.ca-scale-tone-1 {
+  --scale-tone: var(--scale-1);
+}
+.ca-scale-tone-2 {
+  --scale-tone: var(--scale-2);
+}
+.ca-scale-tone-3 {
+  --scale-tone: var(--scale-3);
+}
+.ca-scale-tone-4 {
+  --scale-tone: var(--scale-4);
+}
+.ca-scale-tone-5 {
+  --scale-tone: var(--scale-5);
+}
+.ca-scale-tone-6 {
+  --scale-tone: var(--scale-6);
+}
+/* The reading: a dot in its band's colour, haloed as SunPath's sun is, ringed in the card so it
+   parts the line. A band past the scale's has no colour, and the dot is ink. */
+.ca-scale-mark {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--scale-tone, var(--ink));
+  box-shadow:
+    0 0 0 2px var(--surface-raised),
+    0 0 0 6px color-mix(in srgb, var(--scale-tone, var(--ink)) 18%, transparent);
+}
+.ca-scale-none .ca-scale-value {
+  color: var(--ink-muted);
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@casita/integration-qolsys",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@casita/core": "workspace:*",
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "@casita/integration-testing": "workspace:*"
+  }
+}

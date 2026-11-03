@@ -1,0 +1,323 @@
+{
+  "state": {
+    "controller": { "homeId": 3405691582, "ownNodeId": 1 },
+    "nodes": [
+      {
+        "nodeId": 1,
+        "status": 4,
+        "ready": true,
+        "deviceConfig": {
+          "manufacturer": "Zooz",
+          "label": "ZST39",
+          "description": "800 Series USB Stick"
+        },
+        "values": []
+      },
+      {
+        "nodeId": 2,
+        "status": 4,
+        "ready": true,
+        "name": "Porch plug",
+        "firmwareVersion": "1.4",
+        "deviceConfig": {
+          "manufacturer": "Aeotec",
+          "label": "ZW096",
+          "description": "Smart Switch 6"
+        },
+        "deviceClass": {
+          "generic": { "key": 16, "label": "Binary Switch" },
+          "specific": { "key": 1, "label": "Binary Power Switch" }
+        },
+        "values": [
+          {
+            "commandClass": 37,
+            "endpoint": 0,
+            "property": "currentValue",
+            "value": false,
+            "metadata": { "label": "Current value" }
+          },
+          {
+            "commandClass": 37,
+            "endpoint": 0,
+            "property": "targetValue",
+            "value": false,
+            "metadata": { "label": "Target value" }
+          },
+          {
+            "commandClass": 49,
+            "endpoint": 0,
+            "property": "Power",
+            "value": 0,
+            "metadata": { "label": "Power", "unit": "W" }
+          },
+          {
+            "commandClass": 50,
+            "endpoint": 0,
+            "property": "value",
+            "propertyKey": 65537,
+            "value": 12.34,
+            "metadata": { "label": "Electric Consumption [kWh]", "unit": "kWh" }
+          },
+          {
+            "commandClass": 50,
+            "endpoint": 0,
+            "property": "previousValue",
+            "propertyKey": 65537,
+            "value": 12.3,
+            "metadata": { "label": "Electric Consumption [kWh] (prev. value)", "unit": "kWh" }
+          },
+          {
+            "commandClass": 50,
+            "endpoint": 0,
+            "property": "reset",
+            "metadata": { "label": "Reset accumulated values" }
+          }
+        ]
+      },
+      {
+        "nodeId": 3,
+        "status": 4,
+        "ready": true,
+        "firmwareVersion": "5.1",
+        "deviceConfig": { "manufacturer": "Inovelli", "label": "LZW31", "description": "Dimmer" },
+        "deviceClass": {
+          "generic": { "key": 17, "label": "Multilevel Switch" },
+          "specific": { "key": 1, "label": "Multilevel Power Switch" }
+        },
+        "values": [
+          {
+            "commandClass": 38,
+            "endpoint": 0,
+            "property": "currentValue",
+            "value": 0,
+            "metadata": { "label": "Current value", "min": 0, "max": 99 }
+          },
+          {
+            "commandClass": 38,
+            "endpoint": 0,
+            "property": "targetValue",
+            "value": 0,
+            "metadata": { "label": "Target value" }
+          },
+          {
+            "commandClass": 91,
+            "endpoint": 0,
+            "property": "scene",
+            "propertyKey": "001",
+            "metadata": { "label": "Scene 001" }
+          },
+          {
+            "commandClass": 91,
+            "endpoint": 0,
+            "property": "scene",
+            "propertyKey": "002",
+            "metadata": { "label": "Scene 002" }
+          }
+        ]
+      },
+      {
+        "nodeId": 4,
+        "status": 4,
+        "ready": true,
+        "name": "Bedroom blind",
+        "deviceConfig": {
+          "manufacturer": "Fibaro",
+          "label": "FGR223",
+          "description": "Roller Shutter 3"
+        },
+        "deviceClass": {
+          "generic": { "key": 17, "label": "Multilevel Switch" },
+          "specific": { "key": 6, "label": "Motor Control Class B" }
+        },
+        "values": [
+          {
+            "commandClass": 38,
+            "endpoint": 0,
+            "property": "currentValue",
+            "value": 99,
+            "metadata": { "label": "Current value" }
+          },
+          {
+            "commandClass": 38,
+            "endpoint": 0,
+            "property": "targetValue",
+            "value": 99,
+            "metadata": { "label": "Target value" }
+          }
+        ]
+      },
+      {
+        "nodeId": 5,
+        "status": 4,
+        "ready": true,
+        "name": "Front door",
+        "deviceConfig": {
+          "manufacturer": "Schlage",
+          "label": "BE469ZP",
+          "description": "Touchscreen Deadbolt"
+        },
+        "deviceClass": {
+          "generic": { "key": 64, "label": "Entry Control" },
+          "specific": { "key": 3, "label": "Secure Keypad Door Lock" }
+        },
+        "values": [
+          {
+            "commandClass": 98,
+            "endpoint": 0,
+            "property": "currentMode",
+            "value": 255,
+            "metadata": { "label": "Current lock mode" }
+          },
+          {
+            "commandClass": 98,
+            "endpoint": 0,
+            "property": "targetMode",
+            "value": 255,
+            "metadata": { "label": "Target lock mode" }
+          },
+          {
+            "commandClass": 113,
+            "endpoint": 0,
+            "property": "Access Control",
+            "propertyKey": "Door state",
+            "value": 23,
+            "metadata": { "label": "Door state" }
+          }
+        ]
+      },
+      {
+        "nodeId": 6,
+        "status": 4,
+        "ready": true,
+        "name": "Hallway thermostat",
+        "deviceConfig": {
+          "manufacturer": "Honeywell",
+          "label": "T6 Pro",
+          "description": "Thermostat"
+        },
+        "deviceClass": {
+          "generic": { "key": 8, "label": "Thermostat" },
+          "specific": { "key": 6, "label": "General Thermostat V2" }
+        },
+        "values": [
+          {
+            "commandClass": 64,
+            "endpoint": 0,
+            "property": "mode",
+            "value": 1,
+            "metadata": { "label": "Thermostat mode" }
+          },
+          {
+            "commandClass": 67,
+            "endpoint": 0,
+            "property": "setpoint",
+            "propertyKey": 1,
+            "value": 20.5,
+            "metadata": { "label": "Setpoint (Heating)", "unit": "°C", "min": 10, "max": 30 }
+          },
+          {
+            "commandClass": 67,
+            "endpoint": 0,
+            "property": "setpoint",
+            "propertyKey": 2,
+            "value": 25,
+            "metadata": { "label": "Setpoint (Cooling)", "unit": "°C", "min": 15, "max": 35 }
+          },
+          {
+            "commandClass": 49,
+            "endpoint": 0,
+            "property": "Air temperature",
+            "value": 19.5,
+            "metadata": { "label": "Air temperature", "unit": "°C" }
+          }
+        ]
+      },
+      {
+        "nodeId": 7,
+        "status": 1,
+        "ready": true,
+        "name": "Hall sensor",
+        "deviceConfig": {
+          "manufacturer": "Aeotec",
+          "label": "ZW100",
+          "description": "MultiSensor 6"
+        },
+        "deviceClass": {
+          "generic": { "key": 7, "label": "Notification Sensor" },
+          "specific": { "key": 1, "label": "Notification Sensor" }
+        },
+        "values": [
+          {
+            "commandClass": 48,
+            "endpoint": 0,
+            "property": "Motion",
+            "value": false,
+            "metadata": { "label": "Sensor state (Motion)" }
+          },
+          {
+            "commandClass": 113,
+            "endpoint": 0,
+            "property": "Home Security",
+            "propertyKey": "Motion sensor status",
+            "value": 0,
+            "metadata": { "label": "Motion sensor status" }
+          },
+          {
+            "commandClass": 113,
+            "endpoint": 0,
+            "property": "Home Security",
+            "propertyKey": "Cover status",
+            "value": 0,
+            "metadata": { "label": "Cover status" }
+          },
+          {
+            "commandClass": 49,
+            "endpoint": 0,
+            "property": "Humidity",
+            "value": 44,
+            "metadata": { "label": "Humidity", "unit": "%" }
+          },
+          {
+            "commandClass": 128,
+            "endpoint": 0,
+            "property": "level",
+            "value": 90,
+            "metadata": { "label": "Battery level", "unit": "%" }
+          }
+        ]
+      },
+      {
+        "nodeId": 8,
+        "status": 3,
+        "ready": true,
+        "name": "Dead plug",
+        "deviceConfig": { "manufacturer": "Aeotec", "label": "ZW096" },
+        "values": [
+          { "commandClass": 37, "endpoint": 0, "property": "currentValue", "value": true },
+          { "commandClass": 37, "endpoint": 0, "property": "targetValue", "value": true }
+        ]
+      },
+      {
+        "nodeId": 9,
+        "status": 4,
+        "ready": false,
+        "values": [
+          { "commandClass": 37, "endpoint": 0, "property": "currentValue", "value": false }
+        ]
+      },
+      {
+        "nodeId": 10,
+        "status": 4,
+        "ready": true,
+        "name": "Double relay",
+        "deviceConfig": { "manufacturer": "Qubino", "label": "ZMNHBD" },
+        "values": [
+          { "commandClass": 37, "endpoint": 1, "property": "currentValue", "value": false },
+          { "commandClass": 37, "endpoint": 1, "property": "targetValue", "value": false },
+          { "commandClass": 37, "endpoint": 2, "property": "currentValue", "value": true },
+          { "commandClass": 37, "endpoint": 2, "property": "targetValue", "value": true }
+        ]
+      }
+    ]
+  }
+}

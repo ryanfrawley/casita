@@ -1,0 +1,185 @@
+/* Area: a heading and the cards under it, on the page itself. The cards are the wells. */
+.ca-area {
+  --area-col: 320px;
+  /* The room between cards: a grid step each way. The masonry reads the row gap. */
+  --area-row-gap: var(--grid-step);
+  --area-col-gap: var(--grid-step);
+  position: relative;
+  padding: 0 0 var(--space-4);
+}
+.ca-area-closed {
+  padding-bottom: 0;
+}
+/* The heading sits at the bottom of its unit, by the cards it names. */
+.ca-area-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--grid-step) var(--space-4);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  margin: 0 0 var(--grid-step);
+  padding: 0;
+}
+.ca-area-closed .ca-area-head {
+  margin-bottom: 0;
+}
+.ca-area-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: 0 var(--space-3) 0 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 22px var(--radius-sm) var(--radius-sm) var(--radius-sm);
+}
+.ca-area-toggle:not(.ca-area-static):hover {
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+}
+.ca-area-static {
+  cursor: default;
+}
+.ca-area-nameline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.ca-area-chevron {
+  flex: none;
+  color: var(--ink-muted);
+  transition: transform 150ms ease;
+}
+.ca-area-closed .ca-area-chevron {
+  transform: rotate(-90deg);
+}
+/* A heading drawn by a component stands where the icon and titles would. */
+.ca-area-heading {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+/* The icon's box follows the theme's `room.icon` group, with the design's arch as the fallback. */
+.ca-area-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(var(--room-icon-size, 22px) + 2 * var(--room-icon-padding, 11px));
+  height: calc(
+    var(--room-icon-size, 22px) +
+    2 *
+    var(--room-icon-padding, 11px) +
+    var(--room-icon-lift, 4px)
+  );
+  padding-top: var(--room-icon-lift, 4px);
+  box-sizing: border-box;
+  border-radius: var(
+    --room-icon-shape,
+    var(--radius-arch) var(--radius-arch) var(--radius-sm) var(--radius-sm)
+  );
+  border: var(--room-icon-box, var(--room-icon-border, none));
+  background: var(--room-icon-box, var(--room-icon-background, var(--surface-raised)));
+  color: var(--ink-muted);
+}
+.ca-area-icon > svg {
+  width: var(--room-icon-size, 22px);
+  height: var(--room-icon-size, 22px);
+}
+.ca-area-icon-on {
+  background: color-mix(in srgb, var(--lamp) 18%, transparent);
+  color: color-mix(in oklch, var(--lamp) 85%, var(--ink));
+}
+.ca-area-titles {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.ca-area-name {
+  margin: 0;
+  font:
+    var(--room-name-weight, 600) var(--room-name-size, 28px) / 1.2
+    var(--room-name-font, var(--font-sans));
+  color: var(--room-name-color, var(--ink));
+}
+.ca-area-sub {
+  font:
+    var(--room-subtitle-weight, 400) var(--room-subtitle-size, 12px) / 16px
+    var(--room-subtitle-font, var(--font-sans));
+  color: var(--room-subtitle-color, var(--ink-muted));
+}
+/* The chips sit on the name's line when they fit; wrapped under it, they are a unit of their
+   own, a gutter below the name's. */
+.ca-area-facts {
+  flex: 0 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  align-content: flex-end;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ca-area-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+.ca-area-menu {
+  flex: none;
+  margin-left: auto;
+}
+.ca-area-actions + .ca-area-menu {
+  margin-left: 0;
+}
+.ca-area-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--area-col), 100%), 1fr));
+  gap: var(--area-row-gap) var(--area-col-gap);
+  align-items: start;
+}
+.ca-device-msg > svg {
+  flex: none;
+  margin-top: 1px;
+}
+.ca-area-grid.ca-area-masonry {
+  grid-auto-flow: row dense;
+  grid-auto-rows: 1px;
+  row-gap: 0;
+  margin-bottom: calc(-1 * var(--area-row-gap));
+}
+.ca-area-masonry > * {
+  align-self: start;
+}
+.ca-area-empty {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-height: var(--grid-unit);
+  margin: 0;
+  padding: 0 var(--space-4);
+  outline: 1px dashed var(--line-strong);
+  outline-offset: -1px;
+  border-radius: var(--radius-md);
+  font: 400 15px / 22px var(--font-sans);
+  color: var(--ink-muted);
+  text-align: center;
+}
+.ca-area + .ca-area {
+  margin-top: var(--space-4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ca-area-chevron {
+    transition: none;
+  }
+}

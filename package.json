@@ -1,0 +1,37 @@
+{
+  "name": "casita",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "integrations/*"
+  ],
+  "engines": {
+    "bun": ">=1.4.2"
+  },
+  "scripts": {
+    "start": "bun run packages/server/src/main.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.web.json",
+    "lint": "biome check --error-on-warnings .",
+    "format": "biome check --write .",
+    "soak": "bun scripts/soak.ts",
+    "casita": "bun packages/cli/src/main.ts",
+    "ui:tokens": "bun packages/ui/scripts/tokens.ts",
+    "ui:gallery": "bun packages/ui/gallery/dev.ts",
+    "web:dev": "bun packages/web/dev.ts",
+    "web:build": "bun packages/web/build.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@types/bun": "^1.4.2",
+    "aedes": "^1.2.0",
+    "mqtt": "^5.16.0",
+    "typescript": "^5",
+    "zod": "^4.6.5"
+  },
+  "dependencies": {
+    "@casita/core": "workspace:*"
+  }
+}

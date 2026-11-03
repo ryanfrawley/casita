@@ -1,0 +1,11 @@
+/* Last, so it wins: reduced motion drops transitions, never a pending indicator. */
+@media (prefers-reduced-motion: reduce) {
+  .ca-skel,
+  .ca-toast {
+    animation: none;
+  }
+  .ca-cb-box,
+  .ca-scene {
+    transition: none;
+  }
+}

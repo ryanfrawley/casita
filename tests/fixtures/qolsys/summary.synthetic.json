@@ -1,0 +1,120 @@
+{
+  "event": "INFO",
+  "info_type": "SUMMARY",
+  "partition_list": [
+    {
+      "partition_id": 0,
+      "name": "partition1",
+      "status": "DISARM",
+      "secure_arm": false,
+      "zone_list": [
+        {
+          "id": "460-0000",
+          "type": "TakeoverModule",
+          "name": "1st Translator",
+          "group": "takeovermodule",
+          "status": "Closed",
+          "state": "0",
+          "zone_id": 0,
+          "zone_physical_type": 13,
+          "zone_alarm_type": 0,
+          "zone_type": 18,
+          "partition_id": 0
+        },
+        {
+          "id": "001-0001",
+          "type": "Door_Window",
+          "name": "Front Door",
+          "group": "entryexitdelay",
+          "status": "Closed",
+          "state": "0",
+          "zone_id": 1,
+          "zone_physical_type": 1,
+          "zone_alarm_type": 3,
+          "zone_type": 1,
+          "partition_id": 0
+        },
+        {
+          "id": "001-0002",
+          "type": "Door_Window",
+          "name": "Kitchen Window",
+          "group": "instantperimeter_dw",
+          "status": "Open",
+          "state": "1",
+          "zone_id": 2,
+          "zone_physical_type": 1,
+          "zone_alarm_type": 3,
+          "zone_type": 1,
+          "partition_id": 0
+        },
+        {
+          "id": "001-0003",
+          "type": "Motion",
+          "name": "Hall Motion",
+          "group": "awayinstantmotion",
+          "status": "Idle",
+          "state": "0",
+          "zone_id": 3,
+          "zone_physical_type": 2,
+          "zone_alarm_type": 3,
+          "zone_type": 2,
+          "partition_id": 0
+        },
+        {
+          "id": "001-0004",
+          "type": "SmokeDetector",
+          "name": "Upstairs Smoke",
+          "group": "smoke_heat",
+          "status": "Closed",
+          "state": "0",
+          "zone_id": 4,
+          "zone_physical_type": 9,
+          "zone_alarm_type": 9,
+          "zone_type": 5,
+          "partition_id": 0
+        },
+        {
+          "id": "001-0005",
+          "type": "Water",
+          "name": "Laundry Leak",
+          "group": "WaterSensor",
+          "status": "Closed",
+          "state": "0",
+          "zone_id": 5,
+          "zone_physical_type": 8,
+          "zone_alarm_type": 0,
+          "zone_type": 15,
+          "partition_id": 0
+        },
+        {
+          "id": "001-0006",
+          "type": "GlassBreak",
+          "name": "Living Room Glass",
+          "group": "glassbreakawayonly",
+          "status": "Closed",
+          "state": "0",
+          "zone_id": 6,
+          "zone_physical_type": 1,
+          "zone_alarm_type": 3,
+          "zone_type": 116,
+          "partition_id": 0
+        },
+        {
+          "id": "001-0007",
+          "type": "Door_Window",
+          "name": "Living Room Door",
+          "group": "instantperimeter",
+          "status": "Closed",
+          "state": "0",
+          "zone_id": 7,
+          "zone_physical_type": 1,
+          "zone_alarm_type": 3,
+          "zone_type": 1,
+          "partition_id": 0
+        }
+      ]
+    }
+  ],
+  "nonce": "qolsys",
+  "requestID": "00000000-0000-0000-0000-000000000000"
+}

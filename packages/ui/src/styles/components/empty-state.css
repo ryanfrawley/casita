@@ -1,0 +1,55 @@
+/* EmptyState */
+.ca-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  padding: var(--space-8) var(--space-6);
+}
+.ca-empty-arch {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 104px;
+  padding-top: 8px;
+  box-sizing: border-box;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-arch) var(--radius-arch) var(--radius-sm) var(--radius-sm);
+  background: var(--surface-sunken);
+  color: var(--ink-muted);
+}
+.ca-empty-title {
+  margin: 0;
+  font: 600 28px / 34px var(--font-display);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.ca-empty-desc {
+  margin: 0;
+  max-width: 420px;
+  font: 400 15px / 22px var(--font-sans);
+  color: var(--ink-muted);
+}
+.ca-empty-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.ca-empty-inline {
+  padding: var(--space-6) var(--space-4);
+}
+.ca-empty-inline .ca-empty-arch {
+  width: 52px;
+  height: 60px;
+  padding-top: 6px;
+  margin-bottom: var(--space-1);
+}
+.ca-empty-inline .ca-empty-title {
+  font: 600 16px / 22px var(--font-sans);
+  letter-spacing: 0;
+}
+.ca-empty-inline .ca-empty-desc {
+  font-size: 14px;
+  line-height: 20px;
+}

@@ -1,0 +1,23 @@
+/* SegmentedControl */
+.ca-seg {
+  display: inline-flex;
+  padding: 2px;
+  gap: 2px;
+  border-radius: var(--surface-control-radius, var(--radius-sm));
+  background: var(--surface-control-background, var(--surface-sunken));
+  border: var(--surface-control-border, 1px solid var(--line));
+}
+.ca-seg-opt {
+  height: 28px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-muted);
+  font: 500 13px / 18px var(--font-sans);
+  cursor: pointer;
+}
+.ca-seg-on {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  color: var(--ink);
+}
