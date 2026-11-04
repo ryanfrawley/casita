@@ -764,6 +764,14 @@
     padding-left: var(--space-4);
   }
 }
+/* A page is not a thing to pinch or double-tap: on a touch screen it scrolls, and that is
+   all. The viewport meta says so too, but Safari ignores `user-scalable` in the browser and
+   honours this. Controls with their own `touch-action` (the sun path, the editor split) keep
+   it: a child only ever narrows what its ancestors allow. */
+html,
+body {
+  touch-action: pan-x pan-y;
+}
 /* Fingers, not a mouse: every control is at least 44px tall. */
 @media (pointer: coarse) {
   .app-shell .ca-btn,
