@@ -755,6 +755,11 @@
     font-size: 32px;
     line-height: 36px;
   }
+  /* The greeting's weather wraps under the words, where it starts at the page's edge as they
+     do: the icon over the start of its line, not pushed in to end with it. */
+  .app-outside {
+    align-items: flex-start;
+  }
   /* A table wider than the screen scrolls inside its own frame, not the page. */
   .app-page .ca-table-wrap {
     overflow-x: auto;
@@ -1997,6 +2002,11 @@ body {
     max-width: none;
   }
   .app-kbd {
+    display: none;
+  }
+  /* The clock would wrap to a row of its own under the search, between the header and the
+     greeting's weather; a phone has a clock already. */
+  .app-header-clock {
     display: none;
   }
 }
